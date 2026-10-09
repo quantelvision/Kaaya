@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   },
   description: 'Kaaya is a demo fashion store by Quantel Vision. No real orders are placed.',
   robots: { index: false, follow: false },
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
+  },
 }
 
 export const viewport: Viewport = {
