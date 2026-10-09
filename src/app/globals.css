@@ -1,1 +1,27 @@
 @import 'tailwindcss';
+@import '../styles/tokens.css';
+
+@layer base {
+  html {
+    background-color: var(--k-bg);
+    color: var(--k-text);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    background-color: var(--k-bg);
+    font-family: var(--k-font-body);
+    font-size: var(--text-sm);
+    line-height: var(--text-sm--line-height);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--k-primary);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--k-wash);
+    color: var(--k-text);
+  }
+}
