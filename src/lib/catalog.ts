@@ -34,7 +34,11 @@ export const materials = [
   'Synthetic',
 ] as const
 
+export type Material = (typeof materials)[number]
+
 export const fits = ['Relaxed', 'Regular', 'Slim', 'Oversized', 'Flowy'] as const
+
+export type Fit = (typeof fits)[number]
 
 export function isSizeInScale(size: string, scale: SizeScale): boolean {
   return (sizeScales[scale] as readonly string[]).includes(size)
