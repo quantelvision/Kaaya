@@ -20,6 +20,7 @@
 @theme inline {
   --color-*: initial;
   --color-primary: var(--k-primary);
+  --color-primary-hover: color-mix(in oklab, var(--k-primary), black 14%);
   --color-on-primary: var(--k-on-primary);
   --color-accent: var(--k-accent);
   --color-on-accent: var(--k-on-accent);
@@ -85,6 +86,7 @@
   --radius-*: initial;
   --radius-btn: var(--k-radius-btn);
   --radius-card: var(--k-radius-card);
+  --radius-control: min(var(--k-radius-btn), 4px);
 
   --shadow-*: initial;
   --shadow-float:
