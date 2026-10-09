@@ -28,6 +28,9 @@ npm-debug.log*
 # vercel
 .vercel
 
+# sanity
+sanity-schema.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
