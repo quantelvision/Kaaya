@@ -155,6 +155,12 @@
   transition: bottom 300ms var(--ease-out-soft);
 }
 
+@utility pause-children-on-hover {
+  &:hover > * {
+    animation-play-state: paused;
+  }
+}
+
 @utility gutter-x {
   padding-inline: var(--spacing-gutter);
 }

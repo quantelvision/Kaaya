@@ -14,7 +14,7 @@ export function QuantelFooterCredit() {
         alt="Quantel Vision"
         width={800}
         height={343}
-        className="h-8 w-auto"
+        className="h-10 w-auto"
       />
       <span className="text-xs text-q-text-light transition-colors group-hover:text-q-text">
         Designed and engineered by Quantel Vision
