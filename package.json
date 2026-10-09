@@ -11,6 +11,7 @@
     "test": "vitest run",
     "format": "prettier --write .",
     "seed": "tsx --env-file=.env.local scripts/seed/index.ts",
+    "seed:images": "tsx scripts/seed/optimize-images.ts",
     "brand:assets": "tsx scripts/generate-brand-assets.ts",
     "typegen": "sanity schema extract --path=sanity-schema.json --enforce-required-fields --force && sanity typegen generate"
   },
