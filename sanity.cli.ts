@@ -8,6 +8,6 @@ export default defineCliConfig({
   typegen: {
     path: './src/**/*.{ts,tsx}',
     schema: './sanity-schema.json',
-    generates: './src/sanity/types.ts',
+    generates: './sanity.types.ts',
   },
 })

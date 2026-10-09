@@ -11,7 +11,8 @@
     "test": "vitest run",
     "format": "prettier --write .",
     "seed": "tsx --env-file=.env.local scripts/seed/index.ts",
-    "brand:assets": "tsx scripts/generate-brand-assets.ts"
+    "brand:assets": "tsx scripts/generate-brand-assets.ts",
+    "typegen": "sanity schema extract --path=sanity-schema.json --enforce-required-fields --force && sanity typegen generate"
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.10",
