@@ -1,0 +1,4 @@
+export const THEME_STORAGE_KEY = 'kaaya-theme'
+
+// runs inline in <head> before first paint, so it must be plain es5 without imports
+export const noFlashThemeScript = `(function(){try{var raw=window.sessionStorage.getItem(${JSON.stringify(THEME_STORAGE_KEY)});if(!raw)return;var parsed=JSON.parse(raw);var vars=parsed&&parsed.state&&parsed.state.cssVars;if(!vars||typeof vars!=='object')return;var root=document.documentElement;for(var name in vars){if(name.indexOf('--k-')===0&&typeof vars[name]==='string'){root.style.setProperty(name,vars[name])}}var primary=vars['--k-primary'];if(typeof primary!=='string')return;var setMeta=function(){var meta=document.querySelector('meta[name="theme-color"]');if(meta)meta.setAttribute('content',primary)};setMeta();document.addEventListener('DOMContentLoaded',setMeta)}catch(e){}})()`
