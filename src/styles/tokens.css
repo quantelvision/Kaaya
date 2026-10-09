@@ -129,6 +129,30 @@
   font-weight: 500;
 }
 
+@utility wordmark {
+  font-family: var(--font-fraunces);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wordmark);
+  line-height: 1;
+  color: var(--k-brand);
+  font-optical-sizing: auto;
+  font-variation-settings:
+    'SOFT' 50,
+    'WONK' 0;
+}
+
+@utility wordmark-display {
+  font-variation-settings:
+    'opsz' 144,
+    'SOFT' 50,
+    'WONK' 0;
+}
+
+@utility floating-bottom {
+  bottom: calc(env(safe-area-inset-bottom) + 1rem + var(--k-floating-offset, 0px));
+  transition: bottom 300ms var(--ease-out-soft);
+}
+
 @utility gutter-x {
   padding-inline: var(--spacing-gutter);
 }
