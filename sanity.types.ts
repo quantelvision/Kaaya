@@ -172,7 +172,17 @@ export type Product = {
   badges?: Array<string>
   limitedRun?: number
   material:
-    'Cotton' | 'Denim' | 'Linen' | 'Satin' | 'Polyester blend' | 'Leather' | 'Rayon' | 'Nylon'
+    | 'Cotton'
+    | 'Denim'
+    | 'Linen'
+    | 'Satin'
+    | 'Polyester blend'
+    | 'Leather'
+    | 'Rayon'
+    | 'Nylon'
+    | 'Velvet'
+    | 'Wool blend'
+    | 'Synthetic'
   fit: 'Relaxed' | 'Regular' | 'Slim' | 'Oversized' | 'Flowy'
   fitNote?: string
   composition: string
@@ -540,7 +550,17 @@ export type HomeEditsQueryResult = Array<{
         badges: Array<string> | null
         limitedRun: number | null
         material:
-          'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+          | 'Cotton'
+          | 'Denim'
+          | 'Leather'
+          | 'Linen'
+          | 'Nylon'
+          | 'Polyester blend'
+          | 'Rayon'
+          | 'Satin'
+          | 'Synthetic'
+          | 'Velvet'
+          | 'Wool blend'
         fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
         gender: 'men' | 'unisex' | 'women'
         sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -584,7 +604,17 @@ export type HomeEditsQueryResult = Array<{
     badges: Array<string> | null
     limitedRun: number | null
     material:
-      'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+      | 'Cotton'
+      | 'Denim'
+      | 'Leather'
+      | 'Linen'
+      | 'Nylon'
+      | 'Polyester blend'
+      | 'Rayon'
+      | 'Satin'
+      | 'Synthetic'
+      | 'Velvet'
+      | 'Wool blend'
     fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
     gender: 'men' | 'unisex' | 'women'
     sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -632,7 +662,17 @@ export type HomeProductTabsQueryResult = {
     badges: Array<string> | null
     limitedRun: number | null
     material:
-      'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+      | 'Cotton'
+      | 'Denim'
+      | 'Leather'
+      | 'Linen'
+      | 'Nylon'
+      | 'Polyester blend'
+      | 'Rayon'
+      | 'Satin'
+      | 'Synthetic'
+      | 'Velvet'
+      | 'Wool blend'
     fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
     gender: 'men' | 'unisex' | 'women'
     sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -674,7 +714,17 @@ export type HomeProductTabsQueryResult = {
     badges: Array<string> | null
     limitedRun: number | null
     material:
-      'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+      | 'Cotton'
+      | 'Denim'
+      | 'Leather'
+      | 'Linen'
+      | 'Nylon'
+      | 'Polyester blend'
+      | 'Rayon'
+      | 'Satin'
+      | 'Synthetic'
+      | 'Velvet'
+      | 'Wool blend'
     fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
     gender: 'men' | 'unisex' | 'women'
     sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -716,7 +766,17 @@ export type HomeProductTabsQueryResult = {
     badges: Array<string> | null
     limitedRun: number | null
     material:
-      'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+      | 'Cotton'
+      | 'Denim'
+      | 'Leather'
+      | 'Linen'
+      | 'Nylon'
+      | 'Polyester blend'
+      | 'Rayon'
+      | 'Satin'
+      | 'Synthetic'
+      | 'Velvet'
+      | 'Wool blend'
     fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
     gender: 'men' | 'unisex' | 'women'
     sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -763,7 +823,17 @@ export type AllProductsQueryResult = Array<{
   badges: Array<string> | null
   limitedRun: number | null
   material:
-    'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+    | 'Cotton'
+    | 'Denim'
+    | 'Leather'
+    | 'Linen'
+    | 'Nylon'
+    | 'Polyester blend'
+    | 'Rayon'
+    | 'Satin'
+    | 'Synthetic'
+    | 'Velvet'
+    | 'Wool blend'
   fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
   gender: 'men' | 'unisex' | 'women'
   sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -815,7 +885,17 @@ export type CategoryPageQueryResult = {
     badges: Array<string> | null
     limitedRun: number | null
     material:
-      'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+      | 'Cotton'
+      | 'Denim'
+      | 'Leather'
+      | 'Linen'
+      | 'Nylon'
+      | 'Polyester blend'
+      | 'Rayon'
+      | 'Satin'
+      | 'Synthetic'
+      | 'Velvet'
+      | 'Wool blend'
     fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
     gender: 'men' | 'unisex' | 'women'
     sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -887,7 +967,17 @@ export type EditPageQueryResult = {
         badges: Array<string> | null
         limitedRun: number | null
         material:
-          'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+          | 'Cotton'
+          | 'Denim'
+          | 'Leather'
+          | 'Linen'
+          | 'Nylon'
+          | 'Polyester blend'
+          | 'Rayon'
+          | 'Satin'
+          | 'Synthetic'
+          | 'Velvet'
+          | 'Wool blend'
         fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
         gender: 'men' | 'unisex' | 'women'
         sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -931,7 +1021,17 @@ export type EditPageQueryResult = {
     badges: Array<string> | null
     limitedRun: number | null
     material:
-      'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+      | 'Cotton'
+      | 'Denim'
+      | 'Leather'
+      | 'Linen'
+      | 'Nylon'
+      | 'Polyester blend'
+      | 'Rayon'
+      | 'Satin'
+      | 'Synthetic'
+      | 'Velvet'
+      | 'Wool blend'
     fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
     gender: 'men' | 'unisex' | 'women'
     sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -978,7 +1078,17 @@ export type ProductPageQueryResult = {
   badges: Array<string> | null
   limitedRun: number | null
   material:
-    'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+    | 'Cotton'
+    | 'Denim'
+    | 'Leather'
+    | 'Linen'
+    | 'Nylon'
+    | 'Polyester blend'
+    | 'Rayon'
+    | 'Satin'
+    | 'Synthetic'
+    | 'Velvet'
+    | 'Wool blend'
   fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
   gender: 'men' | 'unisex' | 'women'
   sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -1040,7 +1150,17 @@ export type ProductPageQueryResult = {
       badges: Array<string> | null
       limitedRun: number | null
       material:
-        'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+        | 'Cotton'
+        | 'Denim'
+        | 'Leather'
+        | 'Linen'
+        | 'Nylon'
+        | 'Polyester blend'
+        | 'Rayon'
+        | 'Satin'
+        | 'Synthetic'
+        | 'Velvet'
+        | 'Wool blend'
       fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
       gender: 'men' | 'unisex' | 'women'
       sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -1109,7 +1229,17 @@ export type SearchProductsQueryResult = Array<{
   badges: Array<string> | null
   limitedRun: number | null
   material:
-    'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+    | 'Cotton'
+    | 'Denim'
+    | 'Leather'
+    | 'Linen'
+    | 'Nylon'
+    | 'Polyester blend'
+    | 'Rayon'
+    | 'Satin'
+    | 'Synthetic'
+    | 'Velvet'
+    | 'Wool blend'
   fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
   gender: 'men' | 'unisex' | 'women'
   sizeScale: 'apparel' | 'ethnic' | 'footwear'
@@ -1185,7 +1315,17 @@ export type ProductCardsByIdsQueryResult = Array<{
   badges: Array<string> | null
   limitedRun: number | null
   material:
-    'Cotton' | 'Denim' | 'Leather' | 'Linen' | 'Nylon' | 'Polyester blend' | 'Rayon' | 'Satin'
+    | 'Cotton'
+    | 'Denim'
+    | 'Leather'
+    | 'Linen'
+    | 'Nylon'
+    | 'Polyester blend'
+    | 'Rayon'
+    | 'Satin'
+    | 'Synthetic'
+    | 'Velvet'
+    | 'Wool blend'
   fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
   gender: 'men' | 'unisex' | 'women'
   sizeScale: 'apparel' | 'ethnic' | 'footwear'

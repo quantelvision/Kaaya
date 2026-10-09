@@ -29,6 +29,9 @@ export const materials = [
   'Leather',
   'Rayon',
   'Nylon',
+  'Velvet',
+  'Wool blend',
+  'Synthetic',
 ] as const
 
 export const fits = ['Relaxed', 'Regular', 'Slim', 'Oversized', 'Flowy'] as const
