@@ -1,4 +1,8 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
+import { fontVariableClassNames } from '@/lib/fonts'
+import { toRootCss } from '@/lib/theme/css-vars'
+import { noFlashThemeScript } from '@/lib/theme/no-flash-script'
+import { kaayaPreset } from '@/lib/theme/presets'
 import './globals.css'
 
 export const metadata: Metadata = {
@@ -10,9 +14,21 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 }
 
+export const viewport: Viewport = {
+  themeColor: kaayaPreset.tokens.primary,
+}
+
 export default function RootLayout({ children }: LayoutProps<'/'>) {
   return (
-    <html lang="en-IN" className="h-full antialiased">
+    <html
+      lang="en-IN"
+      className={`${fontVariableClassNames} h-full antialiased`}
+      suppressHydrationWarning
+    >
+      <head>
+        <style>{toRootCss(kaayaPreset.tokens)}</style>
+        <script dangerouslySetInnerHTML={{ __html: noFlashThemeScript }} />
+      </head>
       <body className="flex min-h-full flex-col">{children}</body>
     </html>
   )
