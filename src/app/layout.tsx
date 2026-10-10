@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from 'next'
+import { ServiceWorkerProvider } from '@/components/pwa/service-worker-provider'
 import { fontVariableClassNames } from '@/lib/fonts'
+import { startupImages } from '@/lib/pwa/startup-images'
 import { toRootCss } from '@/lib/theme/css-vars'
 import { noFlashThemeScript } from '@/lib/theme/no-flash-script'
 import { siteUrl } from '@/lib/site'
@@ -29,6 +31,12 @@ export const metadata: Metadata = {
     ],
   },
   twitter: { card: 'summary_large_image' },
+  appleWebApp: {
+    capable: true,
+    title: 'Kaaya',
+    statusBarStyle: 'default',
+    startupImage: startupImages,
+  },
   icons: {
     icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
     apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
@@ -50,7 +58,9 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
         <style>{toRootCss(kaayaPreset.tokens)}</style>
         <script dangerouslySetInnerHTML={{ __html: noFlashThemeScript }} />
       </head>
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <ServiceWorkerProvider>{children}</ServiceWorkerProvider>
+      </body>
     </html>
   )
 }
