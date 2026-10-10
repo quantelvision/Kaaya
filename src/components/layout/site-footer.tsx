@@ -9,7 +9,7 @@ import { formatPrice } from '@/lib/format'
 type SiteFooterProps = {
   categories: NavCategory[]
   edits: NavEdit[]
-  helpSettings: StoreHelpSettings
+  helpSettings: StoreHelpSettings | null
 }
 
 const footerLinkClasses =
@@ -53,44 +53,46 @@ export function SiteFooter({ categories, edits, helpSettings }: SiteFooterProps)
             ))}
           </FooterColumn>
 
-          <FooterColumn title="Help">
-            <li>
-              <HelpSheetLink label="Shipping" title="Shipping">
-                <p>
-                  Delivery is free on orders of {formatPrice(helpSettings.freeShippingThreshold)} or
-                  more. Below that, delivery costs {formatPrice(helpSettings.shippingFee)}.
-                </p>
-                <p>
-                  Cash on delivery adds {formatPrice(helpSettings.codFee)}. Orders are packed the
-                  next day and usually arrive within 4 days.
-                </p>
-              </HelpSheetLink>
-            </li>
-            <li>
-              <HelpSheetLink label="Returns" title="Returns and exchanges">
-                <p>
-                  You can return or exchange a piece within {helpSettings.returnWindowDays} days of
-                  delivery. Start the request from your order page and pick a pickup slot.
-                </p>
-                <p>
-                  Refunds go back to the original payment method, or to your Kaaya points with a 10%
-                  bonus.
-                </p>
-              </HelpSheetLink>
-            </li>
-            <li>
-              <HelpSheetLink label="Size help" title="Size help">
-                <p>
-                  Apparel runs from XS to XXL. Ethnic wear runs from S to XXL. Footwear runs from UK
-                  5 to UK 11.
-                </p>
-                <p>
-                  Every product page lists the fit and the size the model wears. If you are between
-                  sizes, take the larger one for relaxed and oversized fits.
-                </p>
-              </HelpSheetLink>
-            </li>
-          </FooterColumn>
+          {helpSettings && (
+            <FooterColumn title="Help">
+              <li>
+                <HelpSheetLink label="Shipping" title="Shipping">
+                  <p>
+                    Delivery is free on orders of {formatPrice(helpSettings.freeShippingThreshold)}{' '}
+                    or more. Below that, delivery costs {formatPrice(helpSettings.shippingFee)}.
+                  </p>
+                  <p>
+                    Cash on delivery adds {formatPrice(helpSettings.codFee)}. Orders are packed the
+                    next day and usually arrive within 4 days.
+                  </p>
+                </HelpSheetLink>
+              </li>
+              <li>
+                <HelpSheetLink label="Returns" title="Returns and exchanges">
+                  <p>
+                    You can return or exchange a piece within {helpSettings.returnWindowDays} days
+                    of delivery. Start the request from your order page and pick a pickup slot.
+                  </p>
+                  <p>
+                    Refunds go back to the original payment method, or to your Kaaya points with a
+                    10% bonus.
+                  </p>
+                </HelpSheetLink>
+              </li>
+              <li>
+                <HelpSheetLink label="Size help" title="Size help">
+                  <p>
+                    Apparel runs from XS to XXL. Ethnic wear runs from S to XXL. Footwear runs from
+                    UK 5 to UK 11.
+                  </p>
+                  <p>
+                    Every product page lists the fit and the size the model wears. If you are
+                    between sizes, take the larger one for relaxed and oversized fits.
+                  </p>
+                </HelpSheetLink>
+              </li>
+            </FooterColumn>
+          )}
 
           <div className="col-span-2 md:col-span-1">
             <QuantelFooterCredit />
