@@ -14,6 +14,7 @@ export type CartLine = {
   compareAtPrice: number | null
   image: SanityImageData | null
   stock: number
+  availableSizes: { size: string; stock: number }[]
   quantity: number
 }
 

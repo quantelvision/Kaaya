@@ -22,7 +22,8 @@ export const useOrdersStore = create<OrdersState>()(
     }),
     {
       name: 'kaaya-orders',
-      version: 1,
+      version: 2,
+      migrate: () => ({ orders: [] }),
       storage: sessionJSONStorage<PersistedOrders>(),
       partialize: (state) => ({ orders: state.orders }),
       skipHydration: true,

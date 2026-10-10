@@ -56,7 +56,7 @@ export const useCartStore = create<CartState>()(
     }),
     {
       name: 'kaaya-cart',
-      version: 2,
+      version: 3,
       storage: sessionJSONStorage<PersistedCart>(),
       partialize: (state) => ({
         lines: state.lines,
@@ -64,13 +64,18 @@ export const useCartStore = create<CartState>()(
         coupon: state.coupon,
         usePoints: state.usePoints,
       }),
-      migrate: (persisted) => ({
-        couponCode: null,
-        coupon: null,
-        usePoints: false,
-        ...(persisted as Partial<PersistedCart>),
-        lines: (persisted as Partial<PersistedCart>).lines ?? [],
-      }),
+      migrate: (persisted) => {
+        const state = persisted as Partial<PersistedCart>
+        return {
+          couponCode: state.couponCode ?? null,
+          coupon: state.coupon ?? null,
+          usePoints: state.usePoints ?? false,
+          lines: (state.lines ?? []).map((line) => ({
+            ...line,
+            availableSizes: line.availableSizes ?? [{ size: line.size, stock: line.stock }],
+          })),
+        }
+      },
       skipHydration: true,
     },
   ),

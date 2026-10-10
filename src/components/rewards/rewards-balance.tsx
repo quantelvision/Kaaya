@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { formatNumber } from '@/lib/format'
 import { tierProgress, type LoyaltyTier } from '@/lib/pricing/loyalty'
 import { useHasHydrated } from '@/stores/hydration-store'
-import { useLoyaltyStore } from '@/stores/loyalty-store'
+import { useLoyaltyBalance } from '@/stores/loyalty-store'
 
 type RewardsBalanceProps = {
   tiers: LoyaltyTier[]
@@ -13,7 +13,7 @@ type RewardsBalanceProps = {
 
 export function RewardsBalance({ tiers, startingPoints }: RewardsBalanceProps) {
   const hasHydrated = useHasHydrated()
-  const storedBalance = useLoyaltyStore((state) => state.balance)
+  const balance = useLoyaltyBalance(startingPoints)
 
   if (!hasHydrated) {
     return (
@@ -25,7 +25,6 @@ export function RewardsBalance({ tiers, startingPoints }: RewardsBalanceProps) {
     )
   }
 
-  const balance = storedBalance ?? startingPoints
   const progress = tierProgress(balance, tiers)
 
   return (

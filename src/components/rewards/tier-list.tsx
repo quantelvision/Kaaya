@@ -4,7 +4,7 @@ import { cn } from '@/lib/cn'
 import { formatNumber } from '@/lib/format'
 import { tierProgress, type LoyaltyTier } from '@/lib/pricing/loyalty'
 import { useHasHydrated } from '@/stores/hydration-store'
-import { useLoyaltyStore } from '@/stores/loyalty-store'
+import { useLoyaltyBalance } from '@/stores/loyalty-store'
 
 type TierListProps = {
   tiers: LoyaltyTier[]
@@ -13,10 +13,8 @@ type TierListProps = {
 
 export function TierList({ tiers, startingPoints }: TierListProps) {
   const hasHydrated = useHasHydrated()
-  const storedBalance = useLoyaltyStore((state) => state.balance)
-  const currentName = hasHydrated
-    ? tierProgress(storedBalance ?? startingPoints, tiers).current?.name
-    : undefined
+  const balance = useLoyaltyBalance(startingPoints)
+  const currentName = hasHydrated ? tierProgress(balance, tiers).current?.name : undefined
 
   return (
     <ol className="grid gap-4 md:grid-cols-3">
