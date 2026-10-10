@@ -26,6 +26,7 @@ type SheetProps = {
   side?: SheetSide
   footer?: ReactNode
   className?: string
+  overlayClassName?: string
   children: ReactNode
 }
 
@@ -39,6 +40,7 @@ export function Sheet({
   side = 'responsive',
   footer,
   className,
+  overlayClassName,
   children,
 }: SheetProps) {
   const isDesktop = useMediaQuery('(min-width: 768px)')
@@ -48,7 +50,7 @@ export function Sheet({
     <Drawer.Root open={open} onOpenChange={onOpenChange} direction={direction} autoFocus>
       {trigger && <Drawer.Trigger asChild>{trigger}</Drawer.Trigger>}
       <Drawer.Portal>
-        <Drawer.Overlay className="fixed inset-0 z-50 bg-ink/40" />
+        <Drawer.Overlay className={cn('fixed inset-0 z-50 bg-ink/40', overlayClassName)} />
         <Drawer.Content
           className={cn(
             'fixed z-50 flex flex-col bg-surface text-ink outline-none',

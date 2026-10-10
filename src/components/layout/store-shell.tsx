@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { CartDrawer } from '@/components/cart/cart-drawer'
+import { Customizer } from '@/components/customizer/customizer'
 import { CustomizerButton } from '@/components/customizer/customizer-button'
 import { AnnouncementTicker } from '@/components/layout/announcement-ticker'
 import type { NavCategory, NavEdit, StoreHelpSettings } from '@/components/layout/nav-types'
@@ -48,6 +49,7 @@ export async function StoreShell({ children }: { children: ReactNode }) {
       <QuantelCreditPill />
       <QuantelDialog />
       <CustomizerButton />
+      <Customizer />
     </>
   )
 }
