@@ -11,7 +11,12 @@ import { products } from './content/products'
 import { promos } from './content/promos'
 import { festiveSale, loyaltySettings, siteSettings } from './content/settings'
 import type { SeedProduct, SeedSize, SeedVariant } from './content/types'
-import { colorNameFromSlug, heroVariantProducts, variantFilePattern } from './image-map'
+import {
+  colorNameFromSlug,
+  heroVariantProducts,
+  variantFilePattern,
+  variantHexOverrides,
+} from './image-map'
 import { hotspotForPiece, lookImageFileName, lookLayouts } from './look-layouts'
 import { sampleDominantHex } from './sample-color'
 
@@ -199,7 +204,9 @@ async function productDocument(product: SeedProduct, fileNames: string[]) {
     extraVariants.push({
       colorName: colorNameFromSlug(colorSlug),
       colorSlug,
-      hex: await sampleDominantHex(path.join(imagesDir, firstImage)),
+      hex:
+        variantHexOverrides[`${product.slug}_${colorSlug}`] ??
+        (await sampleDominantHex(path.join(imagesDir, firstImage))),
       sizes: shiftedSizes(product.variant.sizes),
     })
   }

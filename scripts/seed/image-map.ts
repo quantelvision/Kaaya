@@ -72,8 +72,13 @@ export const heroVariantProducts = [
   'cargo-pants',
 ]
 
+// the sampled hex of the sage hoodie reads as grey next to the washed grey swatch
+export const variantHexOverrides: Record<string, string> = {
+  'oversized-hoodie_sage-glaze': '#858E7A',
+}
+
 // extra colors arrive as product-slug_color-slug_01.png, for example oversized-hoodie_sage-glaze_01.png
-export const variantFilePattern = /^([a-z0-9-]+)_([a-z0-9-]+)_(\d{2})\.(png|webp)$/
+export const variantFilePattern = /^([a-z0-9-]+)_([a-z0-9-]+)_(\d{2})\.(png|webp|jpe?g)$/
 
 export function seedImageFileName(productSlug: string, colorSlug: string, index = 1): string {
   return `${productSlug}_${colorSlug}_${String(index).padStart(2, '0')}.webp`

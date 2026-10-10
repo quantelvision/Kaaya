@@ -24,10 +24,6 @@ function riseStyle(step: number): CSSProperties {
   return { animationDelay: `${step * RISE_STEP_MS}ms` }
 }
 
-function formatCount(value: number) {
-  return String(value).padStart(2, '0')
-}
-
 function LookProductTile({ product }: { product: LookProduct }) {
   const image = product.variants[0]?.images[0]
   return (
@@ -253,18 +249,11 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
                 </div>
 
                 <div className="flex flex-col items-start gap-5 md:order-1 md:pr-4">
-                  <div className={cn('flex items-center gap-3', rise)} style={riseStyle(0)}>
-                    <span className="text-xs text-muted tabular-nums">
-                      <span className="text-ink">{formatCount(index + 1)}</span> /{' '}
-                      {formatCount(slideCount)}
-                    </span>
-                    {slide.badge && (
-                      <>
-                        <span aria-hidden className="h-px w-8 bg-line" />
-                        <p className="label-caps text-primary">{slide.badge}</p>
-                      </>
-                    )}
-                  </div>
+                  {slide.badge && (
+                    <p className={cn('label-caps text-primary', rise)} style={riseStyle(0)}>
+                      {slide.badge}
+                    </p>
+                  )}
                   <h2
                     className={cn('heading-display text-4xl text-ink md:text-5xl', rise)}
                     style={riseStyle(1)}

@@ -92,7 +92,7 @@ export const products: SeedProduct[] = [
     price: 1299,
     salePrice: 999,
     description:
-      'A straight kurti in madder red, hand block printed with a small gold floral buta. Three quarter sleeves roll up and button at the elbow. Short side slits let it sit over palazzos or jeans.',
+      'A straight kurti, hand block printed with a small floral buta. Three quarter sleeves roll up and button at the elbow. Short side slits let it sit over palazzos or jeans.',
     badges: ['Block Print'],
     material: 'Cotton',
     fit: 'Relaxed',
@@ -172,7 +172,7 @@ export const products: SeedProduct[] = [
     price: 2499,
     salePrice: 1999,
     description:
-      'Garnet satin cut on the bias, so it falls close to the body and moves like water. Fine adjustable straps and a straight neckline. Midi length for wedding receptions and late dinners.',
+      'Satin cut on the bias, so it falls close to the body and moves like water. Fine adjustable straps and a straight neckline. Midi length for wedding receptions and late dinners.',
     badges: ['Bias Cut'],
     material: 'Satin',
     fit: 'Flowy',
@@ -646,7 +646,7 @@ export const products: SeedProduct[] = [
     gender: 'unisex',
     price: 2199,
     description:
-      'Cargo trousers in sand khaki cotton twill with bellows pockets on both thighs. Six pockets in all and a relaxed straight leg that sits well over chunky soles.',
+      'Cargo trousers in cotton twill with bellows pockets on both thighs. Six pockets in all and a relaxed straight leg that sits well over chunky soles.',
     badges: ['Six Pocket'],
     material: 'Cotton',
     fit: 'Relaxed',
@@ -797,7 +797,7 @@ export const products: SeedProduct[] = [
     gender: 'unisex',
     price: 4999,
     description:
-      'Chunky sneakers in cloud white leather and mesh on a layered sole. The thick midsole stays soft underfoot on long walking days. Padded collar and tongue.',
+      'Chunky sneakers in leather and mesh on a layered sole. The thick midsole stays soft underfoot on long walking days. Padded collar and tongue.',
     badges: ['Cushioned Sole'],
     material: 'Leather',
     fit: 'Regular',
