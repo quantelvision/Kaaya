@@ -281,6 +281,14 @@ export function buildFacets(products: ListingProduct[]): ListingFacets {
   }
 }
 
+function fallbackLabel(key: FilterKey, value: string): string {
+  if (key === 'genders') return genderLabels[value] ?? value
+  const words = key === 'colors' || key === 'categories' ? value.split('-') : [value]
+  return words
+    .map((word) => (word === 'and' ? word : word.charAt(0).toUpperCase() + word.slice(1)))
+    .join(' ')
+}
+
 export type FilterPill = {
   id: string
   label: string
@@ -300,7 +308,9 @@ export function filterPills(filters: ListingFilters, facets: ListingFacets): Fil
 
   for (const key of Object.keys(listParams) as FilterKey[]) {
     for (const value of filters[key]) {
-      const label = facetLabels[key].find((option) => option.value === value)?.label ?? value
+      const label =
+        facetLabels[key].find((option) => option.value === value)?.label ??
+        fallbackLabel(key, value)
       pills.push({
         id: `${key}:${value}`,
         label: key === 'sizes' ? `Size ${label}` : label,

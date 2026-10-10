@@ -167,6 +167,14 @@ describe('buildFacets and filterPills', () => {
   })
 })
 
+describe('filterPills labels for values outside the current set', () => {
+  it('turns slugs into readable labels', () => {
+    const filters = { ...emptyFilters, colors: ['sage-glaze'], genders: ['men'] }
+    const labels = filterPills(filters, buildFacets(products)).map((pill) => pill.label)
+    expect(labels).toEqual(['Sage Glaze', 'Men'])
+  })
+})
+
 describe('toggleValue', () => {
   it('adds and removes a value', () => {
     expect(toggleValue(['S'], 'M')).toEqual(['S', 'M'])
