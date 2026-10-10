@@ -6,6 +6,7 @@ import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { QuantelCreditPill } from '@/components/quantel/quantel-credit-pill'
 import { getActivePromos, getNavigation, getSiteSettings } from '@/lib/sanity/data'
+import { StoreHydration } from '@/stores/store-hydration'
 
 export async function StoreShell({ children }: { children: ReactNode }) {
   const [navigation, promos, settings] = await Promise.all([
@@ -31,6 +32,7 @@ export async function StoreShell({ children }: { children: ReactNode }) {
 
   return (
     <>
+      <StoreHydration />
       <AnnouncementTicker messages={promos.map((promo) => promo.text)} />
       <SiteHeader categories={categories} edits={edits} />
       <main className="flex-1">{children}</main>
