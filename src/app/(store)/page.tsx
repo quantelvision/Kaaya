@@ -27,6 +27,7 @@ export default async function HomePage() {
 
   return (
     <>
+      <h1 className="sr-only">Kaaya, a demo fashion store by Quantel Vision</h1>
       <HeroCarousel slides={heroSlides} />
       {festiveSale && <FestiveStrip sale={festiveSale} />}
       <CategoryScroller categories={navigation.categories} />
