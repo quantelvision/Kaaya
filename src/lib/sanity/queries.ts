@@ -127,7 +127,7 @@ export const festiveSaleQuery = defineQuery(`
 `)
 
 export const homeEditsQuery = defineQuery(`
-  *[_type == "edit"] | order(order asc)[0...2]{
+  *[_type == "edit"] | order(order asc)[0...3]{
     _id,
     title,
     "slug": slug.current,

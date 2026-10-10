@@ -32,7 +32,7 @@ export function SiteFooter({ categories, edits, helpSettings }: SiteFooterProps)
           <KaayaLockup layout="stacked" size="lg" />
         </Link>
 
-        <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-3 lg:grid-cols-4">
           <FooterColumn title="Shop">
             {categories.map((category) => (
               <li key={category.slug}>
@@ -94,7 +94,7 @@ export function SiteFooter({ categories, edits, helpSettings }: SiteFooterProps)
             </FooterColumn>
           )}
 
-          <div className="col-span-2 md:col-span-1">
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
             <QuantelFooterCredit />
           </div>
         </div>

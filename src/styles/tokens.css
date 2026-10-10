@@ -100,6 +100,7 @@
   --spacing-gutter: clamp(1rem, 4vw, 3rem);
   --spacing-section: clamp(3.5rem, 8vw, 7.5rem);
   --spacing-header: 4rem;
+  --spacing-hero: clamp(26rem, calc(100svh - 11rem), 48rem);
 
   --aspect-portrait: 4 / 5;
 
