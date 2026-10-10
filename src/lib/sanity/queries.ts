@@ -48,6 +48,9 @@ const productDetailFields = `
   }
 `
 
+// every word of the query must appear somewhere in these fields, so they are joined into one string
+const searchableProductText = `(title + " " + category->title + " " + material + " " + array::join(coalesce(badges, []), " "))`
+
 const lookFields = `
   _key,
   "image": image{ ${imageFields} },
@@ -215,12 +218,7 @@ export const editSlugsQuery = defineQuery(`
 
 export const searchProductsQuery = defineQuery(`
   *[
-    _type == "product" && (
-      title match $term ||
-      category->title match $term ||
-      material match $term ||
-      badges[] match $term
-    )
+    _type == "product" && ${searchableProductText} match $term
   ] | order(featuredOrder asc, title asc){
     ${productCardFields}
   }
@@ -228,12 +226,7 @@ export const searchProductsQuery = defineQuery(`
 
 export const searchSuggestionsQuery = defineQuery(`{
   "products": *[
-    _type == "product" && (
-      title match $term ||
-      category->title match $term ||
-      material match $term ||
-      badges[] match $term
-    )
+    _type == "product" && ${searchableProductText} match $term
   ] | order(featuredOrder asc, title asc)[0...6]{
     _id,
     title,

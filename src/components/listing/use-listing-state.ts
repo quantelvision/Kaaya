@@ -2,7 +2,12 @@
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useMemo } from 'react'
-import { parseListingState, serializeListingState, type ListingState } from '@/lib/listing'
+import {
+  listingParamNames,
+  parseListingState,
+  serializeListingState,
+  type ListingState,
+} from '@/lib/listing'
 
 export function useListingState() {
   const searchParams = useSearchParams()
@@ -13,10 +18,18 @@ export function useListingState() {
 
   const setState = useCallback(
     (next: ListingState) => {
-      const query = serializeListingState(next)
+      // params the listing does not own, like the search query, stay in the url
+      const params = new URLSearchParams()
+      searchParams.forEach((value, key) => {
+        if (!listingParamNames.has(key)) params.set(key, value)
+      })
+      new URLSearchParams(serializeListingState(next)).forEach((value, key) =>
+        params.set(key, value),
+      )
+      const query = params.toString()
       router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
     },
-    [pathname, router],
+    [pathname, router, searchParams],
   )
 
   return [state, setState] as const

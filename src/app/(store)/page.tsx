@@ -4,6 +4,7 @@ import { FestiveStrip } from '@/components/home/festive-strip'
 import { HeroCarousel } from '@/components/home/hero-carousel'
 import { ManifestoMarquee } from '@/components/home/manifesto-marquee'
 import { ProductTabs } from '@/components/home/product-tabs'
+import { RecentlyViewedRail } from '@/components/product/recently-viewed-rail'
 import {
   getFestiveSale,
   getHeroSlides,
@@ -40,6 +41,7 @@ export default async function HomePage() {
         ]}
       />
       <ManifestoMarquee lines={settings?.manifestoLines ?? []} />
+      <RecentlyViewedRail />
     </>
   )
 }

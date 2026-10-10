@@ -3,6 +3,7 @@ import {
   applyFilters,
   buildFacets,
   emptyFilters,
+  listingParamNames,
   filterPills,
   parseListingState,
   serializeListingState,
@@ -172,6 +173,22 @@ describe('filterPills labels for values outside the current set', () => {
     const filters = { ...emptyFilters, colors: ['sage-glaze'], genders: ['men'] }
     const labels = filterPills(filters, buildFacets(products)).map((pill) => pill.label)
     expect(labels).toEqual(['Sage Glaze', 'Men'])
+  })
+})
+
+describe('listingParamNames', () => {
+  it('covers every param the listing writes and leaves the search query alone', () => {
+    const query = serializeListingState(
+      parseListingState(
+        new URLSearchParams(
+          'size=S&color=garnet&material=Cotton&fit=Slim&gender=men&category=tops&collection=archive&price=100-200&sort=newest&view=editorial',
+        ),
+      ),
+    )
+    for (const key of new URLSearchParams(query).keys()) {
+      expect(listingParamNames.has(key)).toBe(true)
+    }
+    expect(listingParamNames.has('q')).toBe(false)
   })
 })
 

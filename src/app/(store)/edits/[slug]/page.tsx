@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
 import { LookHotspots } from '@/components/home/look-hotspots'
 import { ListingHeader } from '@/components/listing/listing-header'
+import { ListingPageSkeleton } from '@/components/listing/listing-page-skeleton'
 import { ListingSkeleton } from '@/components/listing/listing-skeleton'
 import { ListingView } from '@/components/listing/listing-view'
 import { SanityImage } from '@/components/ui/sanity-image'
@@ -22,7 +23,15 @@ export async function generateMetadata({ params }: PageProps<'/edits/[slug]'>): 
   return { title: edit.title, description: edit.story }
 }
 
-export default async function EditPage({ params }: PageProps<'/edits/[slug]'>) {
+export default function EditPage({ params }: PageProps<'/edits/[slug]'>) {
+  return (
+    <Suspense fallback={<ListingPageSkeleton />}>
+      <EditPageContent params={params} />
+    </Suspense>
+  )
+}
+
+async function EditPageContent({ params }: Pick<PageProps<'/edits/[slug]'>, 'params'>) {
   const { slug } = await params
   const edit = await getEditPage(slug)
   if (!edit) notFound()

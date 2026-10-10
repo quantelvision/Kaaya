@@ -1,6 +1,6 @@
 'use client'
 
-import type { Ref } from 'react'
+import { useId, type Ref } from 'react'
 import { cn } from '@/lib/cn'
 
 type SizePickerProps = {
@@ -12,18 +12,22 @@ type SizePickerProps = {
 }
 
 export function SizePicker({ sizes, selectedSize, error, onSelect, ref }: SizePickerProps) {
+  const id = useId()
+  const labelId = `${id}-label`
+  const errorId = `${id}-error`
+
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-baseline justify-between">
-        <span id="size-label" className="text-xs font-medium text-ink">
+        <span id={labelId} className="text-xs font-medium text-ink">
           Size{selectedSize ? `: ${selectedSize}` : ''}
         </span>
       </div>
       <div
         ref={ref}
         role="radiogroup"
-        aria-labelledby="size-label"
-        aria-describedby={error ? 'size-error' : undefined}
+        aria-labelledby={labelId}
+        aria-describedby={error ? errorId : undefined}
         tabIndex={-1}
         className="flex flex-wrap gap-2 outline-none"
       >
@@ -52,7 +56,7 @@ export function SizePicker({ sizes, selectedSize, error, onSelect, ref }: SizePi
         })}
       </div>
       {error && (
-        <p id="size-error" role="alert" className="text-xs text-danger">
+        <p id={errorId} role="alert" className="text-xs text-danger">
           {error}
         </p>
       )}
