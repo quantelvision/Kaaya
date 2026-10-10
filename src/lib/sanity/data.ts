@@ -1,6 +1,7 @@
 import { sanityFetch } from '@/lib/sanity/fetch'
 import {
   activePromosQuery,
+  allEditsQuery,
   allProductsQuery,
   categoryPageQuery,
   categorySlugsQuery,
@@ -54,6 +55,10 @@ export function getCategoryPage(slug: string) {
     params: { slug },
     tags: ['category', 'product'],
   })
+}
+
+export function getAllEdits() {
+  return sanityFetch({ query: allEditsQuery, tags: ['edit'] })
 }
 
 export function getEditPage(slug: string) {

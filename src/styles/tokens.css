@@ -107,6 +107,16 @@
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
   --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-progress: progress-fill var(--progress-duration, 6s) linear forwards;
+
+  @keyframes progress-fill {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
 
   @keyframes marquee {
     from {
@@ -160,6 +170,13 @@
 @utility pause-children-on-hover {
   &:hover > * {
     animation-play-state: paused;
+  }
+}
+
+@utility scrollbar-none {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 

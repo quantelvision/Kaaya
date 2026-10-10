@@ -58,7 +58,7 @@ export function ProductCard({ product, sizes, isPriority = false, className }: P
         </div>
       </Link>
       {badges.length > 0 && (
-        <div className="pointer-events-none absolute top-3 left-3 flex flex-wrap gap-1.5">
+        <div className="pointer-events-none absolute top-3 right-12 left-3 flex flex-wrap gap-1.5">
           {badges.map((badge) => (
             <Badge key={badge.label} tone={badge.tone}>
               {badge.label}
