@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { indianStates, isPinCode, normalizeIndianMobile } from '@/lib/india'
+import type { PaymentMethod } from '@/lib/order'
 import { cardBrand, isFutureExpiry, netBankingBanks, passesLuhn } from '@/lib/payment'
 
 const upiPattern = /^[a-z0-9._-]{2,256}@[a-z]{2,64}$/i
@@ -51,6 +52,43 @@ export function collectErrors(result: z.ZodSafeParseResult<unknown>, prefix: str
   for (const issue of result.error.issues) {
     const key = `${prefix}.${issue.path.join('.')}`
     if (!errors[key]) errors[key] = issue.message
+  }
+  return errors
+}
+
+export type CheckoutForm = {
+  contact: { name: string; email: string; phone: string }
+  address: { line: string; city: string; state: string; pinCode: string }
+  paymentMethod: PaymentMethod
+  upiId: string
+  isUpiQr: boolean
+  card: { number: string; expiry: string; cvv: string; name: string }
+  bank: string
+}
+
+export const emptyCheckoutForm: CheckoutForm = {
+  contact: { name: '', email: '', phone: '' },
+  address: { line: '', city: '', state: '', pinCode: '' },
+  paymentMethod: 'upi',
+  upiId: '',
+  isUpiQr: false,
+  card: { number: '', expiry: '', cvv: '', name: '' },
+  bank: '',
+}
+
+export function validateCheckoutForm(form: CheckoutForm, now: Date): FieldErrors {
+  const errors: FieldErrors = {
+    ...collectErrors(contactSchema.safeParse(form.contact), 'contact'),
+    ...collectErrors(addressSchema.safeParse(form.address), 'address'),
+  }
+  if (form.paymentMethod === 'upi' && !form.isUpiQr) {
+    Object.assign(errors, collectErrors(upiSchema.safeParse({ upiId: form.upiId }), 'payment'))
+  }
+  if (form.paymentMethod === 'card') {
+    Object.assign(errors, collectErrors(cardSchema(now).safeParse(form.card), 'card'))
+  }
+  if (form.paymentMethod === 'netbanking') {
+    Object.assign(errors, collectErrors(netBankingSchema.safeParse({ bank: form.bank }), 'payment'))
   }
   return errors
 }
