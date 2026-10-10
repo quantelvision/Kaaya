@@ -7,6 +7,7 @@ import { ListingToolbar } from '@/components/listing/listing-toolbar'
 import { useListingState } from '@/components/listing/use-listing-state'
 import { ProductCard } from '@/components/product/product-card'
 import { Button, buttonClasses } from '@/components/ui/button'
+import { Spinner } from '@/components/ui/spinner'
 import { cn } from '@/lib/cn'
 import {
   applyFilters,
@@ -34,7 +35,7 @@ type ListingViewProps = {
 }
 
 export function ListingView({ products, showCategoryFacet }: ListingViewProps) {
-  const [state, setState] = useListingState()
+  const [state, setState, isPending] = useListingState()
   const [isFilterOpen, setIsFilterOpen] = useState(false)
 
   const facets = useMemo(() => buildFacets(products), [products])
@@ -51,6 +52,7 @@ export function ListingView({ products, showCategoryFacet }: ListingViewProps) {
     <>
       <ListingToolbar
         resultCount={visibleProducts.length}
+        isPending={isPending}
         pills={pills}
         sort={state.sort}
         density={state.density}
@@ -67,14 +69,28 @@ export function ListingView({ products, showCategoryFacet }: ListingViewProps) {
         facets={facets}
         filters={state.filters}
         resultCount={visibleProducts.length}
+        isPending={isPending}
         showCategoryFacet={showCategoryFacet}
         onChange={(filters) => setState({ ...state, filters })}
         onClear={clearFilters}
       />
 
-      <div className="mx-auto max-w-page gutter-x pt-8">
+      <div aria-busy={isPending} className="relative mx-auto max-w-page gutter-x pt-8">
+        {isPending && (
+          <div className="pointer-events-none sticky top-36 z-10 flex h-0 justify-center">
+            <span className="mt-6 inline-flex size-11 items-center justify-center rounded-full border border-line bg-surface text-ink shadow-float">
+              <Spinner className="size-5" />
+            </span>
+          </div>
+        )}
         {visibleProducts.length > 0 ? (
-          <div className={cn('grid gap-x-4 gap-y-10 md:gap-x-6', gridClasses[state.density])}>
+          <div
+            className={cn(
+              'grid gap-x-4 gap-y-10 transition-opacity duration-200 md:gap-x-6',
+              gridClasses[state.density],
+              isPending && 'opacity-50',
+            )}
+          >
             {visibleProducts.map((product, index) => (
               <ProductCard
                 key={product._id}

@@ -48,7 +48,7 @@ function processingMessage(form: CheckoutForm): string {
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
     <fieldset className="flex flex-col gap-5 border-t border-line pt-8 first-of-type:border-t-0 first-of-type:pt-0">
-      <legend className="mb-5 heading-display text-2xl text-ink">{title}</legend>
+      <legend className="float-left mb-2 w-full heading-display text-2xl text-ink">{title}</legend>
       {children}
     </fieldset>
   )
@@ -247,7 +247,7 @@ export function CheckoutView({ storePricing }: { storePricing: StorePricing }) {
                 options={indianStates.map((state) => ({ value: state, label: state }))}
                 value={form.address.state}
                 error={visibleError('address.state')}
-                onChange={(event) => updateAddress({ state: event.target.value })}
+                onValueChange={(state) => updateAddress({ state })}
                 onBlur={() => markTouched('address.state')}
               />
             </div>

@@ -2,11 +2,14 @@
 
 import { GridFour, Rows, SlidersHorizontal, X } from '@phosphor-icons/react/ssr'
 import { IconButton } from '@/components/ui/icon-button'
+import { InlineSelect } from '@/components/ui/select'
+import { Spinner } from '@/components/ui/spinner'
 import { cn } from '@/lib/cn'
 import { sortOptions, type Density, type FilterPill, type SortKey } from '@/lib/listing'
 
 type ListingToolbarProps = {
   resultCount: number
+  isPending: boolean
   pills: FilterPill[]
   sort: SortKey
   density: Density
@@ -19,6 +22,7 @@ type ListingToolbarProps = {
 
 export function ListingToolbar({
   resultCount,
+  isPending,
   pills,
   sort,
   density,
@@ -53,26 +57,20 @@ export function ListingToolbar({
           </button>
           <p
             aria-hidden
-            className="ml-1 hidden text-xs whitespace-nowrap text-muted tabular-nums sm:block"
+            className="ml-1 hidden items-center gap-2 text-xs whitespace-nowrap text-muted tabular-nums sm:inline-flex"
           >
             {countLabel}
+            {isPending && <Spinner className="size-3.5" />}
           </p>
 
           <div className="ml-auto flex min-w-0 items-center gap-1">
-            <label className="min-w-0">
-              <span className="sr-only">Sort by</span>
-              <select
-                value={sort}
-                onChange={(event) => onSortChange(event.target.value as SortKey)}
-                className="h-tap w-full max-w-44 appearance-none truncate rounded-btn bg-transparent px-2 text-sm text-ink underline decoration-line underline-offset-4 hover:decoration-ink"
-              >
-                {sortOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-            </label>
+            <InlineSelect
+              label="Sort by"
+              options={sortOptions}
+              value={sort}
+              onValueChange={(value) => onSortChange(value as SortKey)}
+              className="max-w-52"
+            />
             <IconButton
               label={isGrid ? 'Switch to editorial view' : 'Switch to grid view'}
               onClick={() => onDensityChange(isGrid ? 'editorial' : 'grid')}
@@ -92,8 +90,12 @@ export function ListingToolbar({
             pills.length === 0 && 'sm:hidden',
           )}
         >
-          <span aria-hidden className="shrink-0 pr-1 text-xs text-muted tabular-nums sm:hidden">
+          <span
+            aria-hidden
+            className="inline-flex shrink-0 items-center gap-2 pr-1 text-xs text-muted tabular-nums sm:hidden"
+          >
             {countLabel}
+            {isPending && <Spinner className="size-3.5" />}
           </span>
           {pills.map((pill) => (
             <button

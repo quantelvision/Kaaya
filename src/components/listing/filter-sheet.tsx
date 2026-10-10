@@ -23,6 +23,7 @@ type FilterSheetProps = {
   facets: ListingFacets
   filters: ListingFilters
   resultCount: number
+  isPending: boolean
   showCategoryFacet: boolean
   onChange: (filters: ListingFilters) => void
   onClear: () => void
@@ -119,6 +120,7 @@ export function FilterSheet({
   facets,
   filters,
   resultCount,
+  isPending,
   showCategoryFacet,
   onChange,
   onClear,
@@ -136,7 +138,7 @@ export function FilterSheet({
           <Button variant="ghost" onClick={onClear}>
             Clear all
           </Button>
-          <Button isFullWidth onClick={() => onOpenChange(false)}>
+          <Button isFullWidth isLoading={isPending} onClick={() => onOpenChange(false)}>
             Show {resultCount} {resultCount === 1 ? 'piece' : 'pieces'}
           </Button>
         </div>

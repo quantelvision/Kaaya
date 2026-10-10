@@ -154,7 +154,7 @@ export function PaymentSection({
           options={netBankingBanks.map((bank) => ({ value: bank, label: bank }))}
           value={form.bank}
           error={errors['payment.bank']}
-          onChange={(event) => onChange({ bank: event.target.value })}
+          onValueChange={(bank) => onChange({ bank })}
           onBlur={() => onBlurField('payment.bank')}
         />
       )}

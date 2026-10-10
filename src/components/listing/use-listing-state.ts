@@ -1,7 +1,7 @@
 'use client'
 
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useTransition } from 'react'
 import {
   listingParamNames,
   parseListingState,
@@ -13,6 +13,7 @@ export function useListingState() {
   const searchParams = useSearchParams()
   const pathname = usePathname()
   const router = useRouter()
+  const [isPending, startTransition] = useTransition()
 
   const state = useMemo(() => parseListingState(searchParams), [searchParams])
 
@@ -27,10 +28,12 @@ export function useListingState() {
         params.set(key, value),
       )
       const query = params.toString()
-      router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
+      startTransition(() => {
+        router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
+      })
     },
     [pathname, router, searchParams],
   )
 
-  return [state, setState] as const
+  return [state, setState, isPending] as const
 }
