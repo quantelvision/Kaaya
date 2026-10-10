@@ -14,6 +14,8 @@ import {
   navigationQuery,
   productPageQuery,
   productSlugsQuery,
+  searchProductsQuery,
+  searchSuggestionsQuery,
   siteSettingsQuery,
 } from '@/lib/sanity/queries'
 
@@ -87,4 +89,20 @@ export function getCategorySlugs() {
 
 export function getEditSlugs() {
   return sanityFetch({ query: editSlugsQuery, tags: ['edit'] })
+}
+
+export function searchProducts(term: string) {
+  return sanityFetch({
+    query: searchProductsQuery,
+    params: { term },
+    tags: ['product', 'category'],
+  })
+}
+
+export function getSearchSuggestions(term: string) {
+  return sanityFetch({
+    query: searchSuggestionsQuery,
+    params: { term },
+    tags: ['product', 'category', 'edit'],
+  })
 }

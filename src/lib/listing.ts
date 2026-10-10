@@ -68,6 +68,14 @@ const listParams: Record<FilterKey, string> = {
   categories: 'category',
 }
 
+export const listingParamNames = new Set([
+  ...Object.values(listParams),
+  'collection',
+  'price',
+  'sort',
+  'view',
+])
+
 export const emptyFilters: ListingFilters = {
   sizes: [],
   colors: [],

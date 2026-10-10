@@ -35,7 +35,11 @@ export async function StoreShell({ children }: { children: ReactNode }) {
     <>
       <StoreHydration />
       <AnnouncementTicker messages={promos.map((promo) => promo.text)} />
-      <SiteHeader categories={categories} edits={edits} />
+      <SiteHeader
+        categories={categories}
+        edits={edits}
+        popularSearches={settings?.popularSearches ?? []}
+      />
       <main className="flex-1">{children}</main>
       <SiteFooter categories={categories} edits={edits} helpSettings={helpSettings} />
       <CartDrawer

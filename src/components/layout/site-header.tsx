@@ -1,4 +1,3 @@
-import { MagnifyingGlass } from '@phosphor-icons/react/ssr'
 import Link from 'next/link'
 import { KaayaLockup } from '@/components/brand/kaaya-lockup'
 import { BagButton } from '@/components/cart/bag-button'
@@ -7,14 +6,15 @@ import { MobileMenu } from '@/components/layout/mobile-menu'
 import { navLinkClasses } from '@/components/layout/nav-link-classes'
 import type { NavCategory, NavEdit } from '@/components/layout/nav-types'
 import { WishlistLink } from '@/components/layout/wishlist-link'
-import { IconButton } from '@/components/ui/icon-button'
+import { SearchLauncher } from '@/components/search/search-launcher'
 
 type SiteHeaderProps = {
   categories: NavCategory[]
   edits: NavEdit[]
+  popularSearches: string[]
 }
 
-export function SiteHeader({ categories, edits }: SiteHeaderProps) {
+export function SiteHeader({ categories, edits, popularSearches }: SiteHeaderProps) {
   return (
     <header className="sticky top-0 z-30 border-b border-line bg-canvas">
       <div className="mx-auto flex h-header max-w-page items-center gap-2 gutter-x">
@@ -45,9 +45,7 @@ export function SiteHeader({ categories, edits }: SiteHeaderProps) {
           </ul>
         </nav>
         <div className="-mr-3 ml-auto flex items-center">
-          <IconButton label="Search">
-            <MagnifyingGlass weight="light" className="size-6" aria-hidden />
-          </IconButton>
+          <SearchLauncher popularSearches={popularSearches} />
           <WishlistLink className="hidden sm:inline-flex" />
           <BagButton />
         </div>
