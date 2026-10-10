@@ -2,15 +2,18 @@
 
 import Link from 'next/link'
 import { CartLineItem } from '@/components/cart/cart-line-item'
+import { CouponField } from '@/components/cart/coupon-field'
+import { OrderSummaryRows } from '@/components/cart/order-summary-rows'
+import { PointsToggle } from '@/components/cart/points-toggle'
+import { useCartTotals } from '@/components/cart/use-cart-totals'
 import { Button, buttonClasses } from '@/components/ui/button'
 import { Price } from '@/components/ui/price'
 import { SanityImage } from '@/components/ui/sanity-image'
 import { Sheet } from '@/components/ui/sheet'
-import { cartItemCount, cartSubtotal } from '@/lib/cart'
+import { cartItemCount } from '@/lib/cart'
 import { formatPrice } from '@/lib/format'
-import { shippingFor, type ShippingSettings } from '@/lib/pricing/shipping'
+import type { StorePricing } from '@/lib/pricing/settings'
 import { useCartStore } from '@/stores/cart-store'
-import { useHasHydrated } from '@/stores/hydration-store'
 import { useRecentlyViewedStore } from '@/stores/recently-viewed-store'
 
 const PORTRAIT = 4 / 5
@@ -69,18 +72,14 @@ function EmptyBag({ onClose }: { onClose: () => void }) {
   )
 }
 
-export function CartDrawer({ shippingSettings }: { shippingSettings: ShippingSettings | null }) {
-  const hasHydrated = useHasHydrated()
+export function CartDrawer({ storePricing }: { storePricing: StorePricing }) {
   const isOpen = useCartStore((state) => state.isOpen)
-  const lines = useCartStore((state) => state.lines)
   const setOpen = useCartStore((state) => state.setOpen)
   const setQuantity = useCartStore((state) => state.setQuantity)
   const removeLine = useCartStore((state) => state.removeLine)
+  const { totals, lines, balance } = useCartTotals(storePricing, null)
 
-  const visibleLines = hasHydrated ? lines : []
-  const count = cartItemCount(visibleLines)
-  const subtotal = cartSubtotal(visibleLines)
-  const shipping = shippingSettings ? shippingFor(subtotal, shippingSettings) : null
+  const count = cartItemCount(lines)
   const close = () => setOpen(false)
 
   return (
@@ -90,29 +89,9 @@ export function CartDrawer({ shippingSettings }: { shippingSettings: ShippingSet
       title="Your bag"
       description={count > 0 ? `${count} ${count === 1 ? 'piece' : 'pieces'}` : undefined}
       footer={
-        visibleLines.length > 0 ? (
+        lines.length > 0 ? (
           <div className="flex flex-col gap-4">
-            <dl className="flex flex-col gap-2 text-sm">
-              <div className="flex justify-between">
-                <dt className="text-muted">Subtotal</dt>
-                <dd className="text-ink tabular-nums">{formatPrice(subtotal)}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="text-muted">Shipping</dt>
-                <dd className="text-ink tabular-nums">
-                  {shipping === null
-                    ? 'At checkout'
-                    : shipping === 0
-                      ? 'Free'
-                      : formatPrice(shipping)}
-                </dd>
-              </div>
-              <div className="flex justify-between border-t border-line pt-3 text-base">
-                <dt className="text-ink">Total</dt>
-                <dd className="text-ink tabular-nums">{formatPrice(subtotal + (shipping ?? 0))}</dd>
-              </div>
-            </dl>
-            <p className="-mt-2 text-xs text-muted">Inclusive of all taxes</p>
+            <OrderSummaryRows totals={totals} />
             <div className="flex flex-col gap-2">
               <Link
                 href="/checkout"
@@ -131,23 +110,36 @@ export function CartDrawer({ shippingSettings }: { shippingSettings: ShippingSet
     >
       <p aria-live="polite" className="sr-only">
         {count > 0
-          ? `${count} ${count === 1 ? 'piece' : 'pieces'} in your bag`
+          ? `${count} ${count === 1 ? 'piece' : 'pieces'} in your bag, total ${formatPrice(totals.total)}`
           : 'Your bag is empty'}
       </p>
-      {visibleLines.length === 0 ? (
+      {lines.length === 0 ? (
         <EmptyBag onClose={close} />
       ) : (
-        <ul>
-          {visibleLines.map((line) => (
-            <CartLineItem
-              key={line.id}
-              line={line}
-              onQuantityChange={(quantity) => setQuantity(line.id, quantity)}
-              onRemove={() => removeLine(line.id)}
-              onNavigate={close}
-            />
-          ))}
-        </ul>
+        <div className="flex flex-col gap-6">
+          <ul>
+            {lines.map((line) => (
+              <CartLineItem
+                key={line.id}
+                line={line}
+                onQuantityChange={(quantity) => setQuantity(line.id, quantity)}
+                onRemove={() => removeLine(line.id)}
+                onNavigate={close}
+              />
+            ))}
+          </ul>
+          <div className="flex flex-col gap-4 border-t border-line pt-5">
+            <CouponField subtotal={totals.subtotal} applied={totals.coupon} />
+            {storePricing.loyalty && (
+              <PointsToggle
+                balance={balance}
+                redeemablePoints={totals.redeemablePoints}
+                pointsDiscount={totals.pointsDiscount}
+                rules={storePricing.loyalty}
+              />
+            )}
+          </div>
+        </div>
       )}
     </Sheet>
   )
