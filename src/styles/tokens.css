@@ -87,6 +87,8 @@
   --radius-btn: var(--k-radius-btn);
   --radius-card: var(--k-radius-card);
   --radius-control: min(var(--k-radius-btn), 4px);
+  --radius-q: 12px;
+  --radius-q-sm: 4px;
 
   --shadow-*: initial;
   --shadow-float:

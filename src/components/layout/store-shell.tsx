@@ -6,6 +6,7 @@ import type { NavCategory, NavEdit, StoreHelpSettings } from '@/components/layou
 import { SiteFooter } from '@/components/layout/site-footer'
 import { SiteHeader } from '@/components/layout/site-header'
 import { QuantelCreditPill } from '@/components/quantel/quantel-credit-pill'
+import { QuantelDialog } from '@/components/quantel/quantel-dialog'
 import { getActivePromos, getNavigation, getSiteSettings, getStorePricing } from '@/lib/sanity/data'
 import { StoreHydration } from '@/stores/store-hydration'
 
@@ -45,6 +46,7 @@ export async function StoreShell({ children }: { children: ReactNode }) {
       <SiteFooter categories={categories} edits={edits} helpSettings={helpSettings} />
       <CartDrawer storePricing={storePricing} />
       <QuantelCreditPill />
+      <QuantelDialog />
       <CustomizerButton />
     </>
   )
