@@ -25,6 +25,7 @@ const isExcluded = ({ request, url, sameOrigin }: RouteMatchCallbackOptions) =>
   sameOrigin &&
   (isStudioPath(url.pathname) ||
     url.pathname.startsWith('/api') ||
+    url.pathname.startsWith('/_vercel') ||
     (request.referrer !== '' && isStudioPath(new URL(request.referrer).pathname)))
 
 const isPageData = ({ request, url, sameOrigin }: RouteMatchCallbackOptions) =>
