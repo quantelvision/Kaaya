@@ -99,6 +99,8 @@
   --spacing-section: clamp(3.5rem, 8vw, 7.5rem);
   --spacing-header: 4rem;
 
+  --aspect-portrait: 4 / 5;
+
   --container-page: 90rem;
   --container-prose: 68ch;
 
