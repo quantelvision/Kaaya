@@ -100,7 +100,7 @@ export function SearchLauncher({ popularSearches }: { popularSearches: string[] 
 
   const visibleResults = hasTerm ? results : null
   const resultSummary = visibleResults
-    ? `${visibleResults.products.length} pieces, ${visibleResults.categories.length + visibleResults.edits.length} categories and edits`
+    ? `${visibleResults.products.length} pieces, ${visibleResults.categories.length + visibleResults.edits.length} categories and looks`
     : ''
 
   return (
@@ -115,7 +115,7 @@ export function SearchLauncher({ popularSearches }: { popularSearches: string[] 
         <DialogPrimitive.Content className="fixed inset-0 z-50 flex flex-col bg-canvas outline-none md:inset-x-0 md:top-0 md:bottom-auto md:max-h-[85dvh] md:border-b md:border-line md:shadow-float">
           <DialogPrimitive.Title className="sr-only">Search the store</DialogPrimitive.Title>
           <DialogPrimitive.Description className="sr-only">
-            Type to see matching pieces, categories and edits. Press enter for all results.
+            Type to see matching pieces, categories and looks. Press enter for all results.
           </DialogPrimitive.Description>
           <form
             role="search"

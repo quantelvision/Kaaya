@@ -27,6 +27,7 @@ type SheetProps = {
   footer?: ReactNode
   className?: string
   overlayClassName?: string
+  headerStart?: ReactNode
   children: ReactNode
 }
 
@@ -41,6 +42,7 @@ export function Sheet({
   footer,
   className,
   overlayClassName,
+  headerStart,
   children,
 }: SheetProps) {
   const isDesktop = useMediaQuery('(min-width: 768px)')
@@ -62,6 +64,7 @@ export function Sheet({
             <Drawer.Handle className="mt-3 h-1! w-10! shrink-0 bg-line!" />
           )}
           <div className="flex items-center justify-between gap-4 py-3 pr-2 pl-5">
+            {headerStart}
             <div className={cn('flex flex-col gap-0.5', isTitleHidden && 'sr-only')}>
               <Drawer.Title className="font-display text-xl">{title}</Drawer.Title>
               {description && (

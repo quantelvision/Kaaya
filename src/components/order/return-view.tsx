@@ -179,8 +179,8 @@ export function ReturnView({ orderId, returnWindowDays, pointValueRupees }: Retu
                       options={returnReasons.map((reason) => ({ value: reason, label: reason }))}
                       value={draft.reason}
                       error={showError(`${line.id}.reason`)}
-                      onChange={(event) =>
-                        updateDraft(line.id, { reason: event.target.value as ReturnReason })
+                      onValueChange={(reason) =>
+                        updateDraft(line.id, { reason: reason as ReturnReason })
                       }
                     />
                     <RadioGroup
@@ -206,9 +206,7 @@ export function ReturnView({ orderId, returnWindowDays, pointValueRupees }: Retu
                         options={sizes.map((size) => ({ value: size, label: size }))}
                         value={draft.exchangeSize}
                         error={showError(`${line.id}.exchangeSize`)}
-                        onChange={(event) =>
-                          updateDraft(line.id, { exchangeSize: event.target.value })
-                        }
+                        onValueChange={(exchangeSize) => updateDraft(line.id, { exchangeSize })}
                       />
                     ) : (
                       <RadioGroup

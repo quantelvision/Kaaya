@@ -17,7 +17,7 @@ export function FestiveStrip({ sale }: { sale: FestiveSaleData }) {
         <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
           <Countdown sale={sale} variant="blocks" />
           <Link
-            href={`/edits/${sale.edit.slug}`}
+            href={`/looks/${sale.edit.slug}`}
             className={buttonClasses({ variant: 'secondary' })}
           >
             Shop the sale

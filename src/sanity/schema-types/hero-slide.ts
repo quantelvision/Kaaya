@@ -34,7 +34,7 @@ export const heroSlide = defineType({
       name: 'ctaHref',
       title: 'Button link',
       type: 'string',
-      description: 'A path inside the store, for example /edits/festive-edit.',
+      description: 'A path inside the store, for example /looks/festive-edit.',
       validation: (rule) =>
         rule
           .required()

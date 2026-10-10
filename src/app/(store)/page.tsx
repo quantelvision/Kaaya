@@ -1,5 +1,5 @@
 import { CategoryScroller } from '@/components/home/category-scroller'
-import { EditsGallery } from '@/components/home/edits-gallery'
+import { LooksGallery } from '@/components/home/looks-gallery'
 import { FestiveStrip } from '@/components/home/festive-strip'
 import { HeroCarousel } from '@/components/home/hero-carousel'
 import { ManifestoMarquee } from '@/components/home/manifesto-marquee'
@@ -32,7 +32,8 @@ export default async function HomePage() {
       <HeroCarousel slides={heroSlides} />
       {festiveSale && <FestiveStrip sale={festiveSale} />}
       <CategoryScroller categories={navigation.categories} />
-      <EditsGallery edits={homeEdits} />
+      <LooksGallery edits={homeEdits} />
+      <ManifestoMarquee lines={settings?.manifestoLines ?? []} />
       <ProductTabs
         tabs={[
           { id: 'new-in', label: 'New In', products: productTabs.newIn },
@@ -40,7 +41,6 @@ export default async function HomePage() {
           { id: 'archive', label: 'Archive', products: productTabs.archive },
         ]}
       />
-      <ManifestoMarquee lines={settings?.manifestoLines ?? []} />
       <RecentlyViewedRail />
     </>
   )

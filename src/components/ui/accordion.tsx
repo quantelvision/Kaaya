@@ -27,7 +27,7 @@ export function Accordion({ items, defaultOpenIds, className }: AccordionProps) 
       {items.map((item) => (
         <AccordionPrimitive.Item key={item.id} value={item.id} className="border-b border-line">
           <AccordionPrimitive.Header>
-            <AccordionPrimitive.Trigger className="group flex min-h-tap w-full items-center justify-between gap-4 py-4 text-left text-sm font-medium text-ink">
+            <AccordionPrimitive.Trigger className="group flex min-h-tap w-full cursor-pointer items-center justify-between gap-4 py-4 text-left text-sm font-medium text-ink">
               {item.title}
               <Plus
                 weight="light"
@@ -36,7 +36,7 @@ export function Accordion({ items, defaultOpenIds, className }: AccordionProps) 
               />
             </AccordionPrimitive.Trigger>
           </AccordionPrimitive.Header>
-          <AccordionPrimitive.Content className="overflow-hidden text-sm text-muted">
+          <AccordionPrimitive.Content className="overflow-hidden text-sm text-muted data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down">
             <div className="max-w-prose pb-5">{item.content}</div>
           </AccordionPrimitive.Content>
         </AccordionPrimitive.Item>

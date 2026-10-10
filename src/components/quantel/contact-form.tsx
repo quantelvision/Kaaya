@@ -196,7 +196,7 @@ export function ContactForm({ source, orderId, onSuccess }: ContactFormProps) {
                   side="top"
                   sideOffset={8}
                   collisionPadding={16}
-                  className="z-60 max-w-xs rounded-q border border-q-border-dark bg-q-bg-dark p-4 font-q-body text-xs leading-relaxed text-q-text-dark shadow-float outline-none"
+                  className="z-60 max-w-xs rounded-q border border-q-border-dark bg-q-bg-dark p-4 font-q-body text-xs leading-relaxed text-q-text-dark shadow-float outline-none data-[state=closed]:animate-pop-out data-[state=open]:animate-pop-in"
                 >
                   We use these details only to reply to this enquiry. We do not share them or add
                   you to a mailing list.

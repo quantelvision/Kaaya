@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata, Viewport } from 'next'
 import { ServiceWorkerProvider } from '@/components/pwa/service-worker-provider'
 import { fontVariableClassNames } from '@/lib/fonts'
@@ -60,6 +62,8 @@ export default function RootLayout({ children }: LayoutProps<'/'>) {
       </head>
       <body className="flex min-h-full flex-col">
         <ServiceWorkerProvider>{children}</ServiceWorkerProvider>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

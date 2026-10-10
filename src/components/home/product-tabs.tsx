@@ -31,7 +31,7 @@ export function ProductTabs({ tabs }: { tabs: ProductTab[] }) {
             <Tabs.Trigger
               key={tab.id}
               value={tab.id}
-              className="-mb-px inline-flex h-tap shrink-0 items-center border-b border-transparent heading-display text-xl text-muted transition-colors hover:text-ink data-[state=active]:border-ink data-[state=active]:text-ink sm:text-2xl md:text-3xl"
+              className="-mb-px inline-flex min-h-tap shrink-0 cursor-pointer items-end border-b border-transparent pt-1 pb-3 heading-display text-xl text-muted transition-colors hover:text-ink data-[state=active]:border-ink data-[state=active]:text-ink sm:text-2xl md:pb-4 md:text-3xl"
             >
               {tab.label}
             </Tabs.Trigger>
