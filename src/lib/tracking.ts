@@ -21,13 +21,14 @@ export type TrackingStep = {
   state: 'complete' | 'current' | 'upcoming'
 }
 
+// statusIndex is the last completed step, the step after it is the one in progress
 export function trackingSteps(createdAt: string, statusIndex: number): TrackingStep[] {
   const start = Date.parse(createdAt)
   return orderStatuses.map((status, index) => ({
     key: status.key,
     label: status.label,
     expectedAt: new Date(start + expectedDayOffsets[status.key] * DAY_MS).toISOString(),
-    state: index < statusIndex ? 'complete' : index === statusIndex ? 'current' : 'upcoming',
+    state: index <= statusIndex ? 'complete' : index === statusIndex + 1 ? 'current' : 'upcoming',
   }))
 }
 

@@ -4,8 +4,10 @@ import {
   cardSchema,
   collectErrors,
   contactSchema,
+  emptyCheckoutForm,
   netBankingSchema,
   upiSchema,
+  validateCheckoutForm,
 } from '@/lib/checkout-validation'
 import {
   formatIndianMobile,
@@ -14,6 +16,7 @@ import {
   isPinCode,
   normalizeIndianMobile,
 } from '@/lib/india'
+import { checkoutTestData } from '@/lib/checkout-test-data'
 import { leadSchema } from '@/lib/lead'
 import { createOrderId, createReturnId, uniqueId } from '@/lib/order-id'
 import {
@@ -72,12 +75,15 @@ describe('tracking', () => {
     const steps = trackingSteps('2026-10-10T08:30:00.000Z', 1)
     expect(steps.map((step) => step.state)).toEqual([
       'complete',
+      'complete',
       'current',
       'upcoming',
       'upcoming',
       'upcoming',
-      'upcoming',
     ])
+    expect(
+      trackingSteps('2026-10-10T08:30:00.000Z', 5).every((step) => step.state === 'complete'),
+    ).toBe(true)
     expect(steps[2]?.expectedAt.slice(0, 10)).toBe('2026-10-11')
     expect(steps[3]?.expectedAt.slice(0, 10)).toBe('2026-10-12')
     expect(steps[4]?.expectedAt.slice(0, 10)).toBe('2026-10-14')
@@ -205,5 +211,42 @@ describe('lead schema', () => {
   it('rejects an invalid phone and a malformed order id', () => {
     expect(leadSchema.safeParse({ ...lead, phone: '12345' }).success).toBe(false)
     expect(leadSchema.safeParse({ ...lead, orderId: 'ORDER-1' }).success).toBe(false)
+  })
+})
+
+describe('validateCheckoutForm', () => {
+  const filled = {
+    ...emptyCheckoutForm,
+    contact: checkoutTestData.contact,
+    address: checkoutTestData.address,
+    upiId: checkoutTestData.upiId,
+    card: checkoutTestData.card,
+    bank: checkoutTestData.bank,
+  }
+
+  it('passes the test data for every payment method', () => {
+    for (const paymentMethod of ['upi', 'card', 'netbanking', 'cod'] as const) {
+      expect(validateCheckoutForm({ ...filled, paymentMethod }, now)).toEqual({})
+    }
+  })
+
+  it('skips the UPI ID when paying by QR and skips payment fields for cash on delivery', () => {
+    expect(validateCheckoutForm({ ...filled, upiId: '', isUpiQr: true }, now)).toEqual({})
+    expect(
+      validateCheckoutForm({ ...filled, paymentMethod: 'cod', card: emptyCheckoutForm.card }, now),
+    ).toEqual({})
+  })
+
+  it('reports missing fields of the chosen method', () => {
+    const errors = validateCheckoutForm(
+      { ...filled, paymentMethod: 'card', card: emptyCheckoutForm.card },
+      now,
+    )
+    expect(Object.keys(errors).sort()).toEqual([
+      'card.cvv',
+      'card.expiry',
+      'card.name',
+      'card.number',
+    ])
   })
 })
