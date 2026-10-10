@@ -100,7 +100,7 @@
   --spacing-gutter: clamp(1rem, 4vw, 3rem);
   --spacing-section: clamp(3.5rem, 8vw, 7.5rem);
   --spacing-header: 4rem;
-  --spacing-hero: clamp(26rem, calc(100svh - 11rem), 48rem);
+  --spacing-hero: clamp(24rem, calc(100svh - 16rem), 46rem);
 
   --aspect-portrait: 4 / 5;
 
@@ -138,6 +138,21 @@
   --animate-pop-out: pop-out 160ms ease-in forwards;
   --animate-accordion-down: accordion-down 320ms var(--ease-out-soft);
   --animate-accordion-up: accordion-up 240ms var(--ease-out-soft);
+  --animate-rise: rise 700ms var(--ease-out-soft) both;
+  --animate-hero-zoom: hero-zoom 7s ease-out both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(14px);
+    }
+  }
+
+  @keyframes hero-zoom {
+    from {
+      transform: scale(1.06);
+    }
+  }
 
   @keyframes fade-in {
     from {
@@ -192,6 +207,8 @@
     --animate-pop-out: fade-out 120ms ease-in forwards;
     --animate-accordion-down: none;
     --animate-accordion-up: none;
+    --animate-rise: fade-in 200ms ease-out both;
+    --animate-hero-zoom: none;
   }
 }
 
@@ -245,6 +262,20 @@
   &::-webkit-scrollbar {
     display: none;
   }
+}
+
+@utility hero-glow {
+  background-image:
+    radial-gradient(
+      55% 60% at 78% 45%,
+      color-mix(in oklab, var(--k-primary) 11%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      40% 45% at 12% 85%,
+      color-mix(in oklab, var(--k-accent) 9%, transparent),
+      transparent 70%
+    );
 }
 
 @utility gutter-x {
