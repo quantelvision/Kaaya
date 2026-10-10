@@ -478,7 +478,7 @@ export type ActivePromosQueryResult = Array<{
 
 // Source: src/lib/sanity/queries.ts
 // Variable: heroSlidesQuery
-// Query: *[_type == "heroSlide"] | order(order asc){    _id,    badge,    headline,    subtext,    ctaLabel,    ctaHref,    "image": image{   asset,  hotspot,  crop,  "lqip": asset->metadata.lqip,  "aspectRatio": asset->metadata.dimensions.aspectRatio }  }
+// Query: *[_type == "heroSlide"] | order(order asc){    _id,    badge,    headline,    subtext,    ctaLabel,    ctaHref,    "image": image{   asset,  hotspot,  crop,  "lqip": asset->metadata.lqip,  "aspectRatio": asset->metadata.dimensions.aspectRatio },    "look": *[_type == "edit" && "/looks/" + slug.current == ^.ctaHref][0]{      title,      "products": products[0...3]->{   _id,  _createdAt,  title,  "slug": slug.current,  price,  salePrice,  badges,  limitedRun,  material,  fit,  gender,  sizeScale,  featuredOrder,  flags,  "category": category->{ title, "slug": slug.current },  "variants": variants[]{    _key,    colorName,    "colorSlug": colorSlug.current,    hex,    "images": images[0...2]{   asset,  hotspot,  crop,  "lqip": asset->metadata.lqip,  "aspectRatio": asset->metadata.dimensions.aspectRatio },    sizes[]{ size, stock }  } }    }  }
 export type HeroSlidesQueryResult = Array<{
   _id: string
   badge: string | null
@@ -493,6 +493,61 @@ export type HeroSlidesQueryResult = Array<{
     lqip: string | null
     aspectRatio: number | null
   }
+  look: {
+    title: string
+    products: Array<{
+      _id: string
+      _createdAt: string
+      title: string
+      slug: string
+      price: number
+      salePrice: number | null
+      badges: Array<string> | null
+      limitedRun: number | null
+      material:
+        | 'Cotton'
+        | 'Denim'
+        | 'Leather'
+        | 'Linen'
+        | 'Nylon'
+        | 'Polyester blend'
+        | 'Rayon'
+        | 'Satin'
+        | 'Synthetic'
+        | 'Velvet'
+        | 'Wool blend'
+      fit: 'Flowy' | 'Oversized' | 'Regular' | 'Relaxed' | 'Slim'
+      gender: 'men' | 'unisex' | 'women'
+      sizeScale: 'apparel' | 'ethnic' | 'footwear'
+      featuredOrder: number | null
+      flags: {
+        isNewIn?: boolean
+        isBestSeller?: boolean
+        isArchive?: boolean
+      } | null
+      category: {
+        title: string
+        slug: string
+      }
+      variants: Array<{
+        _key: string
+        colorName: string
+        colorSlug: string
+        hex: string
+        images: Array<{
+          asset: SanityImageAssetReference | null
+          hotspot: SanityImageHotspot | null
+          crop: SanityImageCrop | null
+          lqip: string | null
+          aspectRatio: number | null
+        }>
+        sizes: Array<{
+          size: string
+          stock: number
+        }>
+      }>
+    }>
+  } | null
 }>
 
 // Source: src/lib/sanity/queries.ts
@@ -1413,7 +1468,7 @@ declare global {
     '\n  *[_type == "siteSettings"][0]{\n    storeName,\n    popularSearches,\n    freeShippingThreshold,\n    shippingFee,\n    codFee,\n    manifestoLines,\n    lowStockThreshold,\n    returnWindowDays\n  }\n': SiteSettingsQueryResult
     '{\n  "categories": *[_type == "category"] | order(order asc){\n    _id,\n    title,\n    "slug": slug.current,\n    iconKey,\n    "productCount": count(*[_type == "product" && references(^._id)])\n  },\n  "edits": *[_type == "edit"] | order(order asc){\n    _id,\n    title,\n    "slug": slug.current\n  }\n}': NavigationQueryResult
     '\n  *[_type == "bannerPromo" && isActive == true] | order(order asc){\n    _id,\n    text,\n    discountPercent\n  }\n': ActivePromosQueryResult
-    '\n  *[_type == "heroSlide"] | order(order asc){\n    _id,\n    badge,\n    headline,\n    subtext,\n    ctaLabel,\n    ctaHref,\n    "image": image{ \n  asset,\n  hotspot,\n  crop,\n  "lqip": asset->metadata.lqip,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio\n }\n  }\n': HeroSlidesQueryResult
+    '\n  *[_type == "heroSlide"] | order(order asc){\n    _id,\n    badge,\n    headline,\n    subtext,\n    ctaLabel,\n    ctaHref,\n    "image": image{ \n  asset,\n  hotspot,\n  crop,\n  "lqip": asset->metadata.lqip,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio\n },\n    "look": *[_type == "edit" && "/looks/" + slug.current == ^.ctaHref][0]{\n      title,\n      "products": products[0...3]->{ \n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  price,\n  salePrice,\n  badges,\n  limitedRun,\n  material,\n  fit,\n  gender,\n  sizeScale,\n  featuredOrder,\n  flags,\n  "category": category->{ title, "slug": slug.current },\n  "variants": variants[]{\n    _key,\n    colorName,\n    "colorSlug": colorSlug.current,\n    hex,\n    "images": images[0...2]{ \n  asset,\n  hotspot,\n  crop,\n  "lqip": asset->metadata.lqip,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio\n },\n    sizes[]{ size, stock }\n  }\n }\n    }\n  }\n': HeroSlidesQueryResult
     '\n  *[_type == "festiveSale"][0]{\n    isActive,\n    title,\n    subtitle,\n    mode,\n    endsAt,\n    rollingHours,\n    "edit": edit->{\n      title,\n      "slug": slug.current,\n      "productIds": products[]._ref\n    }\n  }\n': FestiveSaleQueryResult
     '\n  *[_type == "edit"] | order(order asc)[0...3]{\n    _id,\n    title,\n    "slug": slug.current,\n    story,\n    "coverImage": coverImage{ \n  asset,\n  hotspot,\n  crop,\n  "lqip": asset->metadata.lqip,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio\n },\n    "look": looks[0]{ \n  _key,\n  "image": image{ \n  asset,\n  hotspot,\n  crop,\n  "lqip": asset->metadata.lqip,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio\n },\n  hotspots[]{\n    _key,\n    x,\n    y,\n    "product": product->{ \n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  price,\n  salePrice,\n  badges,\n  limitedRun,\n  material,\n  fit,\n  gender,\n  sizeScale,\n  featuredOrder,\n  flags,\n  "category": category->{ title, "slug": slug.current },\n  "variants": variants[]{\n    _key,\n    colorName,\n    "colorSlug": colorSlug.current,\n    hex,\n    "images": images[0...2]{ \n  asset,\n  hotspot,\n  crop,\n  "lqip": asset->metadata.lqip,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio\n },\n    sizes[]{ size, stock }\n  }\n }\n  }\n },\n    "products": products[0...2]->{ \n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  price,\n  salePrice,\n  badges,\n  limitedRun,\n  material,\n  fit,\n  gender,\n  sizeScale,\n  featuredOrder,\n  flags,\n  "category": category->{ title, "slug": slug.current },\n  "variants": variants[]{\n    _key,\n    colorName,\n    "colorSlug": colorSlug.current,\n    hex,\n    "images": images[0...2]{ \n  asset,\n  hotspot,\n  crop,\n  "lqip": asset->metadata.lqip,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio\n },\n    sizes[]{ size, stock }\n  }\n }\n  }\n': HomeEditsQueryResult
     '{\n  "newIn": *[_type == "product" && flags.isNewIn == true] | order(featuredOrder asc, title asc){\n    \n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  price,\n  salePrice,\n  badges,\n  limitedRun,\n  material,\n  fit,\n  gender,\n  sizeScale,\n  featuredOrder,\n  flags,\n  "category": category->{ title, "slug": slug.current },\n  "variants": variants[]{\n    _key,\n    colorName,\n    "colorSlug": colorSlug.current,\n    hex,\n    "images": images[0...2]{ \n  asset,\n  hotspot,\n  crop,\n  "lqip": asset->metadata.lqip,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio\n },\n    sizes[]{ size, stock }\n  }\n\n  },\n  "bestSellers": *[_type == "product" && flags.isBestSeller == true] | order(featuredOrder asc, title asc){\n    \n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  price,\n  salePrice,\n  badges,\n  limitedRun,\n  material,\n  fit,\n  gender,\n  sizeScale,\n  featuredOrder,\n  flags,\n  "category": category->{ title, "slug": slug.current },\n  "variants": variants[]{\n    _key,\n    colorName,\n    "colorSlug": colorSlug.current,\n    hex,\n    "images": images[0...2]{ \n  asset,\n  hotspot,\n  crop,\n  "lqip": asset->metadata.lqip,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio\n },\n    sizes[]{ size, stock }\n  }\n\n  },\n  "archive": *[_type == "product" && flags.isArchive == true] | order(featuredOrder asc, title asc){\n    \n  _id,\n  _createdAt,\n  title,\n  "slug": slug.current,\n  price,\n  salePrice,\n  badges,\n  limitedRun,\n  material,\n  fit,\n  gender,\n  sizeScale,\n  featuredOrder,\n  flags,\n  "category": category->{ title, "slug": slug.current },\n  "variants": variants[]{\n    _key,\n    colorName,\n    "colorSlug": colorSlug.current,\n    hex,\n    "images": images[0...2]{ \n  asset,\n  hotspot,\n  crop,\n  "lqip": asset->metadata.lqip,\n  "aspectRatio": asset->metadata.dimensions.aspectRatio\n },\n    sizes[]{ size, stock }\n  }\n\n  }\n}': HomeProductTabsQueryResult

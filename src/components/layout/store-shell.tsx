@@ -42,6 +42,7 @@ export async function StoreShell({ children }: { children: ReactNode }) {
         categories={categories}
         edits={edits}
         popularSearches={settings?.popularSearches ?? []}
+        startingPoints={storePricing.loyalty?.startingPoints ?? null}
       />
       <main className="flex-1">{children}</main>
       <SiteFooter categories={categories} edits={edits} helpSettings={helpSettings} />

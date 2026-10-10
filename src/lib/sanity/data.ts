@@ -39,7 +39,7 @@ export function getFestiveSale() {
 }
 
 export function getHeroSlides() {
-  return sanityFetch({ query: heroSlidesQuery, tags: ['heroSlide'] })
+  return sanityFetch({ query: heroSlidesQuery, tags: ['heroSlide', 'edit', 'product', 'category'] })
 }
 
 export function getHomeEdits() {

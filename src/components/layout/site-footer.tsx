@@ -56,6 +56,11 @@ export function SiteFooter({ categories, edits, helpSettings }: SiteFooterProps)
           {helpSettings && (
             <FooterColumn title="Help">
               <li>
+                <Link href="/rewards" className={footerLinkClasses}>
+                  Kaaya rewards
+                </Link>
+              </li>
+              <li>
                 <HelpSheetLink label="Shipping" title="Shipping">
                   <p>
                     Delivery is free on orders of {formatPrice(helpSettings.freeShippingThreshold)}{' '}

@@ -106,7 +106,11 @@ export const heroSlidesQuery = defineQuery(`
     subtext,
     ctaLabel,
     ctaHref,
-    "image": image{ ${imageFields} }
+    "image": image{ ${imageFields} },
+    "look": *[_type == "edit" && "/looks/" + slug.current == ^.ctaHref][0]{
+      title,
+      "products": products[0...3]->{ ${productCardFields} }
+    }
   }
 `)
 
