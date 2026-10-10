@@ -35,12 +35,11 @@ The store runs at `http://localhost:3002`. Add `http://localhost:3002` to the CO
 | `NEXT_PUBLIC_SANITY_API_VERSION` | Sanity API version date, for example `2026-10-01`       |
 | `SANITY_API_WRITE_TOKEN`         | Write token, used only by the seed script               |
 | `SANITY_REVALIDATE_SECRET`       | Secret for the Sanity webhook signature                 |
-| `LEAD_SLACK_WEBHOOK_URL`         | Optional. Slack incoming webhook for enquiries          |
-| `RESEND_API_KEY`                 | Optional. Resend API key for enquiry emails             |
+| `RESEND_API_KEY`                 | Resend API key for enquiry emails                       |
 | `LEAD_EMAIL_TO`                  | Recipient address for enquiry emails                    |
 | `LEAD_EMAIL_FROM`                | Verified sender address for enquiry emails              |
 
-Enquiries go to every destination that is configured.
+Enquiries from the lead form are sent by email through Resend.
 
 ## Scripts
 

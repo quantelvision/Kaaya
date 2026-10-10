@@ -1,3 +1,4 @@
+import type { StorePricing } from '@/lib/pricing/settings'
 import { sanityFetch } from '@/lib/sanity/fetch'
 import {
   activePromosQuery,
@@ -115,4 +116,24 @@ export function getLoyaltySettings() {
 
 export function getCouponByCode(code: string) {
   return sanityFetch({ query: couponByCodeQuery, params: { code }, tags: ['coupon'] })
+}
+
+export async function getStorePricing(): Promise<StorePricing> {
+  const [settings, loyalty] = await Promise.all([getSiteSettings(), getLoyaltySettings()])
+  return {
+    pricing: {
+      freeShippingThreshold: settings?.freeShippingThreshold ?? 0,
+      shippingFee: settings?.shippingFee ?? 0,
+      codFee: settings?.codFee ?? 0,
+    },
+    loyalty: loyalty
+      ? {
+          earnRupeesPerPoint: loyalty.earnRupeesPerPoint,
+          pointValueRupees: loyalty.pointValueRupees,
+          maxRedeemPercent: loyalty.maxRedeemPercent,
+          minRedeemPoints: loyalty.minRedeemPoints,
+          startingPoints: loyalty.startingPoints,
+        }
+      : null,
+  }
 }

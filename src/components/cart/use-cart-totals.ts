@@ -8,7 +8,7 @@ import type { StorePricing } from '@/lib/pricing/settings'
 import { computeOrderTotals } from '@/lib/pricing/totals'
 import { useCartStore } from '@/stores/cart-store'
 import { useHasHydrated } from '@/stores/hydration-store'
-import { useLoyaltyStore } from '@/stores/loyalty-store'
+import { useLoyaltyBalance } from '@/stores/loyalty-store'
 import { useOrdersStore } from '@/stores/orders-store'
 
 const CLOCK_INTERVAL_MS = 60_000
@@ -20,7 +20,7 @@ export function useCartTotals(storePricing: StorePricing, paymentMethod: Payment
   const coupon = useCartStore((state) => state.coupon)
   const couponCode = useCartStore((state) => state.couponCode)
   const usePoints = useCartStore((state) => state.usePoints)
-  const balance = useLoyaltyStore((state) => state.balance)
+  const balance = useLoyaltyBalance(storePricing.loyalty?.startingPoints ?? 0)
   const hasPlacedOrder = useOrdersStore((state) => state.orders.length > 0)
   const now = useNow(CLOCK_INTERVAL_MS)
 
@@ -32,7 +32,7 @@ export function useCartTotals(storePricing: StorePricing, paymentMethod: Payment
         coupon,
         couponCode,
         hasPlacedOrder,
-        pointsBalance: balance ?? 0,
+        pointsBalance: balance,
         usePoints,
         paymentMethod,
         settings: storePricing.pricing,
@@ -52,5 +52,5 @@ export function useCartTotals(storePricing: StorePricing, paymentMethod: Payment
     ],
   )
 
-  return { totals, lines: visibleLines, balance: balance ?? 0, hasHydrated }
+  return { totals, lines: visibleLines, balance, hasHydrated }
 }

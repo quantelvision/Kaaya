@@ -20,6 +20,10 @@ const hoodieM: CartLineInput = {
   compareAtPrice: null,
   image: null,
   stock: 3,
+  availableSizes: [
+    { size: 'M', stock: 3 },
+    { size: 'L', stock: 12 },
+  ],
 }
 
 describe('maxQuantityFor', () => {

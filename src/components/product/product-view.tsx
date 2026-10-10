@@ -101,6 +101,7 @@ export function ProductView({
       compareAtPrice: isOnSale(product) ? product.price : null,
       image: variant.images[0] ?? null,
       stock: selectedStock,
+      availableSizes: sizes,
     })
 
     if (status === 'added') {

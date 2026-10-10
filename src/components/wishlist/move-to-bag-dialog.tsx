@@ -43,6 +43,7 @@ function MoveToBagForm({ product, onDone }: { product: ProductCardData; onDone: 
       compareAtPrice: isOnSale(product) ? product.price : null,
       image: variant.images[0] ?? null,
       stock: stockForSize(sizes, selectedSize),
+      availableSizes: sizes,
     })
     if (status === 'unavailable') {
       setError('This size is sold out.')
