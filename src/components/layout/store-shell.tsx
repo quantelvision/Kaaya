@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { CartDrawer } from '@/components/cart/cart-drawer'
 import { CustomizerButton } from '@/components/customizer/customizer-button'
 import { AnnouncementTicker } from '@/components/layout/announcement-ticker'
 import type { NavCategory, NavEdit, StoreHelpSettings } from '@/components/layout/nav-types'
@@ -37,6 +38,16 @@ export async function StoreShell({ children }: { children: ReactNode }) {
       <SiteHeader categories={categories} edits={edits} />
       <main className="flex-1">{children}</main>
       <SiteFooter categories={categories} edits={edits} helpSettings={helpSettings} />
+      <CartDrawer
+        shippingSettings={
+          settings
+            ? {
+                freeShippingThreshold: settings.freeShippingThreshold,
+                shippingFee: settings.shippingFee,
+              }
+            : null
+        }
+      />
       <QuantelCreditPill />
       <CustomizerButton />
     </>

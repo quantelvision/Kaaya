@@ -45,7 +45,7 @@ export function Sheet({
   const direction: Direction = side === 'responsive' ? (isDesktop ? 'right' : 'bottom') : side
 
   return (
-    <Drawer.Root open={open} onOpenChange={onOpenChange} direction={direction}>
+    <Drawer.Root open={open} onOpenChange={onOpenChange} direction={direction} autoFocus>
       {trigger && <Drawer.Trigger asChild>{trigger}</Drawer.Trigger>}
       <Drawer.Portal>
         <Drawer.Overlay className="fixed inset-0 z-50 bg-ink/40" />

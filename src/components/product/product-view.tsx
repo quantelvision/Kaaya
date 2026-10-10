@@ -12,8 +12,10 @@ import { Button } from '@/components/ui/button'
 import { Price } from '@/components/ui/price'
 import { useMediaQuery } from '@/hooks/use-media-query'
 import type { CountdownSource } from '@/lib/festive-countdown'
-import { stockForSize } from '@/lib/product'
+import { effectivePrice, isOnSale, stockForSize } from '@/lib/product'
 import type { ProductDetailData } from '@/lib/sanity/models'
+import { useCartStore } from '@/stores/cart-store'
+import { useRecentlyViewedStore } from '@/stores/recently-viewed-store'
 
 type ProductViewProps = {
   product: ProductDetailData
@@ -31,10 +33,14 @@ export function ProductView({
   const [variantKey, setVariantKey] = useState(product.variants[0]?._key ?? '')
   const [selectedSize, setSelectedSize] = useState<string | null>(null)
   const [sizeError, setSizeError] = useState<string | null>(null)
+  const [addMessage, setAddMessage] = useState<string | null>(null)
   const [isStickyVisible, setIsStickyVisible] = useState(false)
   const mainButtonRef = useRef<HTMLButtonElement>(null)
   const sizePickerRef = useRef<HTMLDivElement>(null)
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
+  const addLine = useCartStore((state) => state.addLine)
+  const setCartOpen = useCartStore((state) => state.setOpen)
+  const addRecentlyViewed = useRecentlyViewedStore((state) => state.add)
 
   const variant = product.variants.find((entry) => entry._key === variantKey) ?? product.variants[0]
   const gallery = product.variantGalleries.find((entry) => entry.colorSlug === variant?.colorSlug)
@@ -46,6 +52,10 @@ export function ProductView({
   const isLowStock =
     selectedSize !== null && selectedStock > 0 && selectedStock <= lowStockThreshold
   const altText = variant ? `${product.title} in ${variant.colorName}` : product.title
+
+  useEffect(() => {
+    addRecentlyViewed(product)
+  }, [addRecentlyViewed, product])
 
   useEffect(() => {
     const button = mainButtonRef.current
@@ -61,6 +71,7 @@ export function ProductView({
   const selectVariant = (key: string) => {
     const nextVariant = product.variants.find((entry) => entry._key === key)
     setVariantKey(key)
+    setAddMessage(null)
     if (selectedSize && stockForSize(nextVariant?.sizes ?? [], selectedSize) === 0) {
       setSelectedSize(null)
     }
@@ -77,6 +88,30 @@ export function ProductView({
       return
     }
     setSizeError(null)
+    if (!variant) return
+
+    const status = addLine({
+      productId: product._id,
+      slug: product.slug,
+      title: product.title,
+      colorName: variant.colorName,
+      colorSlug: variant.colorSlug,
+      size: selectedSize,
+      unitPrice: effectivePrice(product),
+      compareAtPrice: isOnSale(product) ? product.price : null,
+      image: variant.images[0] ?? null,
+      stock: selectedStock,
+    })
+
+    if (status === 'added') {
+      setAddMessage(null)
+      setCartOpen(true)
+    } else if (status === 'limit') {
+      setAddMessage('Your bag already has every piece we can sell in this size.')
+      setCartOpen(true)
+    } else {
+      setAddMessage('This size is sold out.')
+    }
   }
 
   return (
@@ -128,6 +163,7 @@ export function ProductView({
               onSelect={(size) => {
                 setSelectedSize(size)
                 setSizeError(null)
+                setAddMessage(null)
               }}
             />
             <p aria-live="polite" className="min-h-5 text-xs text-danger">
@@ -141,10 +177,13 @@ export function ProductView({
               Add to bag
             </Button>
             <WishlistButton
-              productTitle={product.title}
+              product={product}
               className="size-14 shrink-0 rounded-btn border border-line"
             />
           </div>
+          <p aria-live="polite" className="-mt-3 min-h-5 text-xs text-muted">
+            {addMessage ?? ''}
+          </p>
 
           {details}
         </div>

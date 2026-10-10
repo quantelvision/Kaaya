@@ -66,7 +66,7 @@ export function ProductCard({ product, sizes, isPriority = false, className }: P
           ))}
         </div>
       )}
-      <WishlistButton productTitle={product.title} className="absolute top-1 right-1" />
+      <WishlistButton product={product} className="absolute top-1 right-1" />
     </article>
   )
 }
