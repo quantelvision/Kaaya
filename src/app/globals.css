@@ -15,6 +15,45 @@
     line-height: var(--text-sm--line-height);
   }
 
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: color-mix(in oklab, var(--k-text) 22%, transparent) transparent;
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 9999px;
+    background-color: color-mix(in oklab, var(--k-text) 22%, transparent);
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: color-mix(in oklab, var(--k-text) 40%, transparent);
+  }
+
+  button:not(:disabled),
+  [role='button']:not([aria-disabled='true']),
+  [role='tab'],
+  [role='radio'],
+  [role='checkbox'],
+  [role='switch'],
+  [role='option'],
+  summary,
+  label[for],
+  select,
+  input[type='color'] {
+    cursor: pointer;
+  }
+
   :focus-visible {
     outline: 2px solid var(--k-primary);
     outline-offset: 2px;
@@ -28,5 +67,24 @@
   ::selection {
     background-color: var(--k-wash);
     color: var(--k-text);
+  }
+}
+
+:root [data-vaul-drawer][data-vaul-drawer-direction] {
+  animation-duration: 350ms;
+  transition-duration: 350ms;
+}
+
+:root [data-vaul-overlay][data-vaul-snap-points] {
+  animation-duration: 350ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root [data-vaul-drawer][data-vaul-drawer-direction][data-vaul-snap-points][data-state='open'] {
+    animation-name: fadeIn;
+  }
+
+  :root [data-vaul-drawer][data-vaul-drawer-direction][data-vaul-snap-points][data-state='closed'] {
+    animation-name: fadeOut;
   }
 }

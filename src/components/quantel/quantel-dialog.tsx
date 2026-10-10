@@ -29,8 +29,8 @@ export function QuantelDialog() {
   return (
     <DialogPrimitive.Root open={isOpen} onOpenChange={(open) => (open ? undefined : close())}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-q-bg-dark/70" />
-        <DialogPrimitive.Content className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-q-bg-dark font-q-body text-q-text-dark outline-none md:inset-auto md:top-1/2 md:left-1/2 md:max-h-[90dvh] md:w-full md:max-w-xl md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-q md:border md:border-q-border-dark">
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-q-bg-dark/70 data-[state=closed]:animate-fade-out data-[state=open]:animate-fade-in" />
+        <DialogPrimitive.Content className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-q-bg-dark font-q-body text-q-text-dark outline-none data-[state=closed]:animate-pop-out data-[state=open]:animate-pop-in md:inset-auto md:top-1/2 md:left-1/2 md:max-h-[90dvh] md:w-full md:max-w-xl md:-translate-x-1/2 md:-translate-y-1/2 md:rounded-q md:border md:border-q-border-dark">
           <GrainTexture />
           <div className="relative flex flex-col gap-8 px-6 pt-6 pb-10 md:px-10 md:pt-8">
             <div className="flex items-center justify-between gap-4">

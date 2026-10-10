@@ -33,7 +33,7 @@ export function LookHotspots({ hotspots }: { hotspots: LookData['hotspots'] }) {
                 side="top"
                 sideOffset={8}
                 collisionPadding={16}
-                className="z-40 flex w-64 gap-3 rounded-card border border-line bg-surface p-3 shadow-float outline-none"
+                className="z-40 flex w-64 gap-3 rounded-card border border-line bg-surface p-3 shadow-float outline-none data-[state=closed]:animate-pop-out data-[state=open]:animate-pop-in"
               >
                 {image && (
                   <div className="relative aspect-portrait w-16 shrink-0 overflow-hidden rounded-control bg-surface">

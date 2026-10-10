@@ -69,7 +69,7 @@ function DesktopPanel({ onClose }: { onClose: () => void }) {
           aria-modal="false"
           aria-labelledby="customizer-title"
           tabIndex={-1}
-          className="flex size-full flex-col overflow-hidden rounded-card border border-line bg-surface text-ink shadow-float outline-none"
+          className="flex size-full animate-pop-in flex-col overflow-hidden rounded-card border border-line bg-surface text-ink shadow-float outline-none"
         >
           <div className="customizer-drag-handle flex cursor-move items-start justify-between gap-3 border-b border-line py-3 pr-2 pl-5 select-none">
             <div className="flex flex-col gap-1">

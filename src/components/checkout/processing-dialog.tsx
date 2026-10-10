@@ -14,12 +14,12 @@ export function ProcessingDialog({ message, durationMs }: ProcessingDialogProps)
   return (
     <DialogPrimitive.Root open={message !== null}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40" />
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-ink/40 data-[state=open]:animate-fade-in" />
         <DialogPrimitive.Content
           onEscapeKeyDown={(event) => event.preventDefault()}
           onPointerDownOutside={(event) => event.preventDefault()}
           onInteractOutside={(event) => event.preventDefault()}
-          className="fixed top-1/2 left-1/2 z-50 flex w-[calc(100vw-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 flex-col gap-5 rounded-card bg-surface p-6 shadow-float outline-none"
+          className="fixed top-1/2 left-1/2 z-50 flex w-[calc(100vw-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2 flex-col gap-5 rounded-card bg-surface p-6 shadow-float outline-none data-[state=open]:animate-pop-in"
         >
           <DialogPrimitive.Title className="heading-display text-xl text-ink">
             {message}
