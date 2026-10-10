@@ -1,8 +1,11 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
+import { Suspense } from 'react'
 import { ProductCard } from '@/components/product/product-card'
+import { ProductPageSkeleton } from '@/components/product/product-page-skeleton'
 import { ProductView } from '@/components/product/product-view'
+import { RecentlyViewedRail } from '@/components/product/recently-viewed-rail'
 import { Accordion, type AccordionEntry } from '@/components/ui/accordion'
 import { formatPrice } from '@/lib/format'
 import { getFestiveSale, getProductPage, getProductSlugs, getSiteSettings } from '@/lib/sanity/data'
@@ -101,7 +104,15 @@ function detailItems(product: ProductDetailData, settings: SiteSettingsData | nu
   return items
 }
 
-export default async function ProductPage({ params }: PageProps<'/product/[slug]'>) {
+export default function ProductPage({ params }: PageProps<'/product/[slug]'>) {
+  return (
+    <Suspense fallback={<ProductPageSkeleton />}>
+      <ProductPageContent params={params} />
+    </Suspense>
+  )
+}
+
+async function ProductPageContent({ params }: Pick<PageProps<'/product/[slug]'>, 'params'>) {
   const { slug } = await params
   const [product, settings, festiveSale] = await Promise.all([
     getProductPage(slug),
@@ -171,6 +182,8 @@ export default async function ProductPage({ params }: PageProps<'/product/[slug]
           </div>
         </section>
       )}
+
+      <RecentlyViewedRail excludeId={product._id} className="-mx-gutter" />
     </div>
   )
 }
