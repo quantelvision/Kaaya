@@ -16,7 +16,7 @@ export async function generateMetadata({
 }: PageProps<'/shop/[category]'>): Promise<Metadata> {
   const { category: slug } = await params
   const category = await getCategoryPage(slug)
-  if (!category) return {}
+  if (!category) return { title: 'Page not found' }
   return { title: category.title, description: category.description ?? undefined }
 }
 

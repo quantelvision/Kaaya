@@ -21,7 +21,7 @@ export async function generateMetadata({
 }: PageProps<'/product/[slug]'>): Promise<Metadata> {
   const { slug } = await params
   const product = await getProductPage(slug)
-  if (!product) return {}
+  if (!product) return { title: 'Page not found' }
   const image = product.variants[0]?.images[0]
   return {
     title: product.title,

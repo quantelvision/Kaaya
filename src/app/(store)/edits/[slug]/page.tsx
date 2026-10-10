@@ -18,7 +18,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: PageProps<'/edits/[slug]'>): Promise<Metadata> {
   const { slug } = await params
   const edit = await getEditPage(slug)
-  if (!edit) return {}
+  if (!edit) return { title: 'Page not found' }
   return { title: edit.title, description: edit.story }
 }
 
