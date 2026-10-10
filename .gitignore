@@ -28,6 +28,10 @@ npm-debug.log*
 # vercel
 .vercel
 
+# service worker build output
+public/sw.js
+public/sw.js.map
+
 # sanity
 sanity-schema.json
 
