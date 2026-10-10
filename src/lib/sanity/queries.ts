@@ -166,6 +166,17 @@ export const categoryPageQuery = defineQuery(`
   }
 `)
 
+export const allEditsQuery = defineQuery(`
+  *[_type == "edit"] | order(order asc){
+    _id,
+    title,
+    "slug": slug.current,
+    story,
+    "coverImage": coverImage{ ${imageFields} },
+    "productCount": count(products)
+  }
+`)
+
 export const editPageQuery = defineQuery(`
   *[_type == "edit" && slug.current == $slug][0]{
     _id,

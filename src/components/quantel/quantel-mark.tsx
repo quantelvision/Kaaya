@@ -23,6 +23,7 @@ export function QuantelMark({ tone, className }: QuantelMarkProps) {
         alt=""
         width={256}
         height={256}
+        sizes="40px"
         className={cn(
           'absolute inset-0 size-full scale-[1.75] object-cover',
           tone === 'onBlack' ? 'mix-blend-lighten' : 'mix-blend-darken',
