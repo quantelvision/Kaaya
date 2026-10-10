@@ -23,13 +23,13 @@ Fill in `.env.local`, then start the dev server:
 pnpm dev
 ```
 
-The store runs at `http://localhost:3000`.
+The store runs at `http://localhost:3002`. Add `http://localhost:3002` to the CORS origins of the Sanity project so the embedded Studio can log in.
 
 ## Environment variables
 
 | Name                             | Purpose                                                 |
 | -------------------------------- | ------------------------------------------------------- |
-| `NEXT_PUBLIC_SITE_URL`           | Public site URL, `http://localhost:3000` in development |
+| `NEXT_PUBLIC_SITE_URL`           | Public site URL, `http://localhost:3002` in development |
 | `NEXT_PUBLIC_SANITY_PROJECT_ID`  | Sanity project id                                       |
 | `NEXT_PUBLIC_SANITY_DATASET`     | Sanity dataset, usually `production`                    |
 | `NEXT_PUBLIC_SANITY_API_VERSION` | Sanity API version date, for example `2026-10-01`       |

@@ -5,12 +5,14 @@ import {
   allProductsQuery,
   categoryPageQuery,
   categorySlugsQuery,
+  couponByCodeQuery,
   editPageQuery,
   editSlugsQuery,
   festiveSaleQuery,
   heroSlidesQuery,
   homeEditsQuery,
   homeProductTabsQuery,
+  loyaltySettingsQuery,
   navigationQuery,
   productPageQuery,
   productSlugsQuery,
@@ -105,4 +107,12 @@ export function getSearchSuggestions(term: string) {
     params: { term },
     tags: ['product', 'category', 'edit'],
   })
+}
+
+export function getLoyaltySettings() {
+  return sanityFetch({ query: loyaltySettingsQuery, tags: ['settings'] })
+}
+
+export function getCouponByCode(code: string) {
+  return sanityFetch({ query: couponByCodeQuery, params: { code }, tags: ['coupon'] })
 }
