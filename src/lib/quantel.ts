@@ -1,2 +1,5 @@
 export const QUANTEL_SITE_URL = 'https://www.quantelvision.com'
 export const QUANTEL_WHATSAPP_URL = 'https://wa.me/916385056784'
+export const QUANTEL_PHONE_DISPLAY = '+91 63850 56784'
+export const QUANTEL_PHONE_URL = 'tel:+916385056784'
+export const QUANTEL_EMAIL = 'support@quantelvision.com'

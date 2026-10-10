@@ -4,7 +4,7 @@ import { cn } from '@/lib/cn'
 const toneClasses = {
   default: 'bg-wash text-ink',
   sale: 'bg-accent text-on-accent',
-  limited: 'border border-ink text-ink',
+  limited: 'border border-ink bg-surface text-ink',
   lowStock: 'text-danger',
 } as const
 
