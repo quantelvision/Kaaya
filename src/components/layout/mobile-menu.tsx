@@ -3,6 +3,7 @@
 import { List } from '@phosphor-icons/react/ssr'
 import Link from 'next/link'
 import { useState } from 'react'
+import { KaayaLockup } from '@/components/brand/kaaya-lockup'
 import { CategoryIcon } from '@/components/icons/category-icon'
 import type { NavCategory, NavEdit } from '@/components/layout/nav-types'
 import { IconButton } from '@/components/ui/icon-button'
@@ -27,6 +28,11 @@ export function MobileMenu({ categories, edits }: MobileMenuProps) {
       side="left"
       title="Menu"
       isTitleHidden
+      headerStart={
+        <Link href="/" onNavigate={close} aria-label="Kaaya home" className="inline-flex">
+          <KaayaLockup layout="horizontal" size="sm" />
+        </Link>
+      }
       trigger={
         <IconButton label="Open menu" className="-ml-3 md:hidden">
           <List weight="light" className="size-6" aria-hidden />
@@ -53,11 +59,11 @@ export function MobileMenu({ categories, edits }: MobileMenuProps) {
           </ul>
         </div>
         <div>
-          <p className="mb-2 label-caps text-muted">Edits</p>
+          <p className="mb-2 label-caps text-muted">Looks</p>
           <ul>
             {edits.map((edit) => (
               <li key={edit.slug}>
-                <Link href={`/edits/${edit.slug}`} onNavigate={close} className={rowClasses}>
+                <Link href={`/looks/${edit.slug}`} onNavigate={close} className={rowClasses}>
                   {edit.title}
                 </Link>
               </li>

@@ -7,6 +7,12 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io', pathname: '/images/**' }],
   },
+  async redirects() {
+    return [
+      { source: '/edits', destination: '/looks', permanent: true },
+      { source: '/edits/:slug', destination: '/looks/:slug', permanent: true },
+    ]
+  },
   async headers() {
     return [
       {

@@ -65,7 +65,7 @@ export const structure: StructureResolver = (S) =>
             ]),
         ),
       S.documentTypeListItem('category').title('Categories'),
-      S.documentTypeListItem('edit').title('Edits'),
+      S.documentTypeListItem('edit').title('Looks'),
       S.divider(),
       S.documentTypeListItem('heroSlide').title('Hero slides'),
       S.documentTypeListItem('bannerPromo').title('Promos'),

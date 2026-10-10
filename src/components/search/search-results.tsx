@@ -25,8 +25,8 @@ export function SearchResults({ results, query, onNavigate }: SearchResultsProps
     ...results.edits.map((edit) => ({
       id: edit._id,
       label: edit.title,
-      kind: 'Edit',
-      href: `/edits/${edit.slug}`,
+      kind: 'Look',
+      href: `/looks/${edit.slug}`,
     })),
   ]
 
@@ -42,7 +42,7 @@ export function SearchResults({ results, query, onNavigate }: SearchResultsProps
     <div className="flex flex-col gap-8">
       {links.length > 0 && (
         <div className="flex flex-col gap-3">
-          <p className="label-caps text-muted">Categories and edits</p>
+          <p className="label-caps text-muted">Categories and looks</p>
           <ul className="flex flex-wrap gap-2">
             {links.map((link) => (
               <li key={link.id}>

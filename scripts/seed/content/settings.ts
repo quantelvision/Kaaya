@@ -35,7 +35,7 @@ export const loyaltySettings = {
       minPoints: 0,
       perk: 'Earn 1 point for every ₹20 you spend.',
     },
-    { key: 'muse', name: 'Muse', minPoints: 1500, perk: 'Early access to every new edit.' },
+    { key: 'muse', name: 'Muse', minPoints: 1500, perk: 'Early access to every new look.' },
     {
       key: 'icon',
       name: 'Icon',

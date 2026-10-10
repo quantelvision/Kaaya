@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { KaayaLockup } from '@/components/brand/kaaya-lockup'
 import { BagButton } from '@/components/cart/bag-button'
-import { EditsMenu } from '@/components/layout/edits-menu'
+import { LooksMenu } from '@/components/layout/looks-menu'
 import { MobileMenu } from '@/components/layout/mobile-menu'
 import { navLinkClasses } from '@/components/layout/nav-link-classes'
 import type { NavCategory, NavEdit } from '@/components/layout/nav-types'
@@ -30,7 +30,7 @@ export function SiteHeader({ categories, edits, popularSearches }: SiteHeaderPro
               </Link>
             </li>
             <li>
-              <EditsMenu edits={edits} />
+              <LooksMenu edits={edits} />
             </li>
             <li>
               <Link href="/shop/ethnic" className={navLinkClasses()}>

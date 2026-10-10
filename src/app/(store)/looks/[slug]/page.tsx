@@ -16,22 +16,22 @@ export async function generateStaticParams() {
   return slugs.map(({ slug }) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: PageProps<'/edits/[slug]'>): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<'/looks/[slug]'>): Promise<Metadata> {
   const { slug } = await params
   const edit = await getEditPage(slug)
   if (!edit) return { title: 'Page not found' }
   return { title: edit.title, description: edit.story }
 }
 
-export default function EditPage({ params }: PageProps<'/edits/[slug]'>) {
+export default function LookPage({ params }: PageProps<'/looks/[slug]'>) {
   return (
     <Suspense fallback={<ListingPageSkeleton />}>
-      <EditPageContent params={params} />
+      <LookPageContent params={params} />
     </Suspense>
   )
 }
 
-async function EditPageContent({ params }: Pick<PageProps<'/edits/[slug]'>, 'params'>) {
+async function LookPageContent({ params }: Pick<PageProps<'/looks/[slug]'>, 'params'>) {
   const { slug } = await params
   const edit = await getEditPage(slug)
   if (!edit) notFound()
@@ -41,11 +41,11 @@ async function EditPageContent({ params }: Pick<PageProps<'/edits/[slug]'>, 'par
   return (
     <>
       <ListingHeader
-        eyebrow="Edit"
+        eyebrow="Look"
         title={edit.title}
         description={edit.story}
         productCount={edit.products.length}
-        crumbs={[{ label: 'Edits', href: '/edits' }]}
+        crumbs={[{ label: 'Looks', href: '/looks' }]}
       />
       {look && (
         <section

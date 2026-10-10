@@ -43,10 +43,10 @@ export function SiteFooter({ categories, edits, helpSettings }: SiteFooterProps)
             ))}
           </FooterColumn>
 
-          <FooterColumn title="Edits">
+          <FooterColumn title="Looks">
             {edits.map((edit) => (
               <li key={edit.slug}>
-                <Link href={`/edits/${edit.slug}`} className={footerLinkClasses}>
+                <Link href={`/looks/${edit.slug}`} className={footerLinkClasses}>
                   {edit.title}
                 </Link>
               </li>

@@ -8,17 +8,17 @@ import type { HomeEditData } from '@/lib/sanity/models'
 
 const PORTRAIT = 4 / 5
 
-export function EditsGallery({ edits }: { edits: HomeEditData[] }) {
+export function LooksGallery({ edits }: { edits: HomeEditData[] }) {
   if (edits.length === 0) return null
 
   return (
-    <section aria-labelledby="edits-heading" className="mx-auto mt-section max-w-page gutter-x">
+    <section aria-labelledby="looks-heading" className="mx-auto mt-section max-w-page gutter-x">
       <div className="mb-10 flex items-end justify-between gap-6">
-        <h2 id="edits-heading" className="heading-display text-2xl md:text-3xl">
-          Edits
+        <h2 id="looks-heading" className="heading-display text-2xl md:text-3xl">
+          Looks
         </h2>
-        <Link href="/edits" className="text-sm text-ink underline underline-offset-4">
-          View all edits
+        <Link href="/looks" className="text-sm text-ink underline underline-offset-4">
+          View all looks
         </Link>
       </div>
 
@@ -52,7 +52,7 @@ export function EditsGallery({ edits }: { edits: HomeEditData[] }) {
                   index % 2 === 1 && 'md:order-1 md:col-start-1',
                 )}
               >
-                <p className="label-caps text-muted">Edit {String(index + 1).padStart(2, '0')}</p>
+                <p className="label-caps text-muted">Look {String(index + 1).padStart(2, '0')}</p>
                 <h3 id={`edit-${edit.slug}`} className="heading-display text-3xl md:text-4xl">
                   {edit.title}
                 </h3>
@@ -67,10 +67,10 @@ export function EditsGallery({ edits }: { edits: HomeEditData[] }) {
                   ))}
                 </div>
                 <Link
-                  href={`/edits/${edit.slug}`}
+                  href={`/looks/${edit.slug}`}
                   className={buttonClasses({ variant: 'secondary', className: 'self-start' })}
                 >
-                  Shop the edit
+                  Shop the look
                 </Link>
               </div>
             </article>

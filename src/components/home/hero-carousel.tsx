@@ -38,7 +38,7 @@ export function HeroCarousel({ slides }: { slides: HeroSlideData[] }) {
   return (
     <section
       aria-roledescription="carousel"
-      aria-label="Featured edits"
+      aria-label="Featured looks"
       className="mx-auto max-w-page gutter-x pt-6 md:pt-10"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}

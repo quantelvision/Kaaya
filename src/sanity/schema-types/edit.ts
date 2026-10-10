@@ -4,7 +4,7 @@ import { defineArrayMember, defineField, defineType } from 'sanity'
 
 export const edit = defineType({
   name: 'edit',
-  title: 'Edit',
+  title: 'Look',
   type: 'document',
   icon: ImagesIcon,
   fields: [
@@ -61,7 +61,7 @@ export const edit = defineType({
 
 export const look = defineType({
   name: 'look',
-  title: 'Look',
+  title: 'Look photo',
   type: 'object',
   fields: [
     defineField({
@@ -81,7 +81,7 @@ export const look = defineType({
     select: { media: 'image', hotspots: 'hotspots' },
     prepare({ media, hotspots }) {
       const count = Array.isArray(hotspots) ? hotspots.length : 0
-      return { title: `Look with ${count} ${count === 1 ? 'hotspot' : 'hotspots'}`, media }
+      return { title: `Photo with ${count} ${count === 1 ? 'hotspot' : 'hotspots'}`, media }
     },
   },
 })
