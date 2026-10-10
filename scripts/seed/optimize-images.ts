@@ -79,7 +79,7 @@ async function main() {
     return match?.[1] !== undefined && heroVariantProducts.includes(match[1])
   })
   for (const fileName of variantFiles) {
-    await optimize(path.join(sourceDir, fileName), fileName.replace(/\.(png|webp)$/, '.webp'))
+    await optimize(path.join(sourceDir, fileName), fileName.replace(/\.(png|webp|jpe?g)$/, '.webp'))
   }
 
   for (const editSlug of Object.keys(lookLayouts)) {
