@@ -19,7 +19,7 @@ export function useCartTotals(storePricing: StorePricing, paymentMethod: Payment
   const lines = useCartStore((state) => state.lines)
   const coupon = useCartStore((state) => state.coupon)
   const couponCode = useCartStore((state) => state.couponCode)
-  const usePoints = useCartStore((state) => state.usePoints)
+  const pointsToUse = useCartStore((state) => state.pointsToUse)
   const balance = useLoyaltyBalance(storePricing.loyalty?.startingPoints ?? 0)
   const hasPlacedOrder = useOrdersStore((state) => state.orders.length > 0)
   const now = useNow(CLOCK_INTERVAL_MS)
@@ -33,7 +33,7 @@ export function useCartTotals(storePricing: StorePricing, paymentMethod: Payment
         couponCode,
         hasPlacedOrder,
         pointsBalance: balance,
-        usePoints,
+        pointsToUse,
         paymentMethod,
         settings: storePricing.pricing,
         loyalty: storePricing.loyalty,
@@ -45,7 +45,7 @@ export function useCartTotals(storePricing: StorePricing, paymentMethod: Payment
       couponCode,
       hasPlacedOrder,
       balance,
-      usePoints,
+      pointsToUse,
       paymentMethod,
       storePricing,
       now,

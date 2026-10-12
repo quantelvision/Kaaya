@@ -50,7 +50,7 @@ function input(overrides: Partial<TotalsInput> = {}): TotalsInput {
     couponCode: null,
     hasPlacedOrder: false,
     pointsBalance: 640,
-    usePoints: false,
+    pointsToUse: 0,
     paymentMethod: null,
     settings: { freeShippingThreshold: 1499, shippingFee: 99, codFee: 49 },
     loyalty: {
@@ -153,7 +153,7 @@ describe('computeOrderTotals with points', () => {
   })
 
   it('redeems after the coupon and caps at 20% of that amount', () => {
-    const totals = withCoupon('KAAYA10', { usePoints: true })
+    const totals = withCoupon('KAAYA10', { pointsToUse: 640 })
     expect(totals.amountAfterCoupon).toBe(1979)
     expect(totals.pointsRedeemed).toBe(395)
     expect(totals.pointsDiscount).toBe(395)
@@ -165,7 +165,7 @@ describe('computeOrderTotals with points', () => {
 
   it('charges shipping when points take the amount under the threshold', () => {
     const totals = computeOrderTotals(
-      input({ lines: [{ unitPrice: 1799, quantity: 1 }], usePoints: true }),
+      input({ lines: [{ unitPrice: 1799, quantity: 1 }], pointsToUse: 640 }),
     )
     expect(totals.pointsRedeemed).toBe(359)
     expect(totals.amountAfterPoints).toBe(1440)
@@ -173,9 +173,30 @@ describe('computeOrderTotals with points', () => {
     expect(totals.total).toBe(1539)
   })
 
+  it('uses a chosen amount inside the allowed range', () => {
+    const totals = computeOrderTotals(
+      input({ lines: [{ unitPrice: 4999, quantity: 1 }], pointsToUse: 250 }),
+    )
+    expect(totals.redeemablePoints).toBe(640)
+    expect(totals.pointsRedeemed).toBe(250)
+    expect(totals.pointsDiscount).toBe(250)
+    expect(totals.total).toBe(4749)
+  })
+
+  it('snaps a chosen amount to the minimum and to the cap', () => {
+    const low = computeOrderTotals(
+      input({ lines: [{ unitPrice: 4999, quantity: 1 }], pointsToUse: 40 }),
+    )
+    expect(low.pointsRedeemed).toBe(100)
+    const high = computeOrderTotals(
+      input({ lines: [{ unitPrice: 1799, quantity: 1 }], pointsToUse: 500 }),
+    )
+    expect(high.pointsRedeemed).toBe(359)
+  })
+
   it('does not redeem below the minimum', () => {
     const totals = computeOrderTotals(
-      input({ lines: [{ unitPrice: 499, quantity: 1 }], usePoints: true }),
+      input({ lines: [{ unitPrice: 499, quantity: 1 }], pointsToUse: 640 }),
     )
     expect(totals.redeemablePoints).toBe(0)
     expect(totals.pointsRedeemed).toBe(0)

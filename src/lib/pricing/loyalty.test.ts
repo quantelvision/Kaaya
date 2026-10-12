@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   pointsEarned,
   pointsValue,
+  pointsToRedeem,
   redeemablePoints,
   tierProgress,
   type LoyaltyRules,
@@ -19,6 +20,26 @@ const tiers = [
   { name: 'Insider', minPoints: 0, perk: 'Points on every order' },
   { name: 'Muse', minPoints: 1500, perk: 'Early access' },
 ]
+
+describe('pointsToRedeem', () => {
+  it('keeps a request inside the range', () => {
+    expect(pointsToRedeem(250, 400, rules)).toBe(250)
+  })
+
+  it('snaps to the minimum and the maximum', () => {
+    expect(pointsToRedeem(30, 400, rules)).toBe(100)
+    expect(pointsToRedeem(900, 400, rules)).toBe(400)
+  })
+
+  it('returns 0 when nothing is requested or nothing can be redeemed', () => {
+    expect(pointsToRedeem(0, 400, rules)).toBe(0)
+    expect(pointsToRedeem(250, 0, rules)).toBe(0)
+  })
+
+  it('drops fractions of a point', () => {
+    expect(pointsToRedeem(150.8, 400, rules)).toBe(150)
+  })
+})
 
 describe('redeemablePoints', () => {
   it('uses the whole balance when it is under the cap', () => {

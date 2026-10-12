@@ -4,7 +4,7 @@ import { CaretDown } from '@phosphor-icons/react/ssr'
 import { useId, useState } from 'react'
 import { CouponField } from '@/components/cart/coupon-field'
 import { OrderSummaryRows } from '@/components/cart/order-summary-rows'
-import { PointsToggle } from '@/components/cart/points-toggle'
+import { PointsRedeemer } from '@/components/cart/points-redeemer'
 import { SanityImage } from '@/components/ui/sanity-image'
 import type { CartLine } from '@/lib/cart'
 import { cn } from '@/lib/cn'
@@ -85,10 +85,10 @@ export function CheckoutSummary({ lines, totals, balance, storePricing }: Checko
         <div className="flex flex-col gap-4 border-t border-line pt-5">
           <CouponField subtotal={totals.subtotal} applied={totals.coupon} />
           {storePricing.loyalty && (
-            <PointsToggle
+            <PointsRedeemer
               balance={balance}
               redeemablePoints={totals.redeemablePoints}
-              pointsDiscount={totals.pointsDiscount}
+              pointsRedeemed={totals.pointsRedeemed}
               rules={storePricing.loyalty}
             />
           )}

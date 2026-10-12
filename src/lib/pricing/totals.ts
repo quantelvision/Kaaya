@@ -8,6 +8,7 @@ import {
 } from '@/lib/pricing/coupons'
 import {
   pointsEarned,
+  pointsToRedeem,
   pointsValue,
   redeemablePoints,
   type LoyaltyRules,
@@ -27,7 +28,7 @@ export type TotalsInput = {
   couponCode: string | null
   hasPlacedOrder: boolean
   pointsBalance: number
-  usePoints: boolean
+  pointsToUse: number
   paymentMethod: PaymentMethod | null
   settings: PricingSettings
   loyalty: LoyaltyRules | null
@@ -83,7 +84,9 @@ export function computeOrderTotals(input: TotalsInput): OrderTotalsResult {
   const redeemable = input.loyalty
     ? redeemablePoints(input.pointsBalance, amountAfterCoupon, input.loyalty)
     : 0
-  const pointsRedeemed = input.usePoints ? redeemable : 0
+  const pointsRedeemed = input.loyalty
+    ? pointsToRedeem(input.pointsToUse, redeemable, input.loyalty)
+    : 0
   const pointsDiscount = input.loyalty ? pointsValue(pointsRedeemed, input.loyalty) : 0
   const amountAfterPoints = amountAfterCoupon - pointsDiscount
 
