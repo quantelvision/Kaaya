@@ -1,6 +1,5 @@
 'use client'
 
-import * as Slider from '@radix-ui/react-slider'
 import { useId, useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { controlClasses } from '@/components/ui/field'
@@ -52,7 +51,9 @@ export function PointsRedeemer({
           Kaaya points
         </h3>
         <p className="text-xs text-muted tabular-nums">
-          {formatNumber(isUsing ? left : balance)} {isUsing ? 'left after this order' : 'available'}
+          {isUsing
+            ? `${formatNumber(left)} pts left after this order`
+            : `${formatNumber(balance)} pts available`}
         </p>
       </div>
 
@@ -74,28 +75,6 @@ export function PointsRedeemer({
         </div>
       ) : (
         <>
-          {max > min && (
-            <Slider.Root
-              min={min}
-              max={max}
-              step={1}
-              value={[pointsRedeemed]}
-              onValueChange={([value]) => {
-                setDraft(null)
-                setPointsToUse(value ?? min)
-              }}
-              aria-label="Points to use"
-              className="relative flex h-tap touch-none items-center select-none"
-            >
-              <Slider.Track className="relative h-1 grow overflow-hidden rounded-full bg-line">
-                <Slider.Range className="absolute h-full bg-primary" />
-              </Slider.Track>
-              <Slider.Thumb
-                aria-label="Points to use"
-                className="block size-5 rounded-full border-2 border-primary bg-surface shadow-float"
-              />
-            </Slider.Root>
-          )}
           <div className="flex items-center gap-2">
             <label htmlFor={`${id}-amount`} className="sr-only">
               Points to use
