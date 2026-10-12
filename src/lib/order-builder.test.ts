@@ -49,7 +49,7 @@ describe('buildOrder', () => {
       couponCode: null,
       hasPlacedOrder: false,
       pointsBalance: 640,
-      usePoints: true,
+      pointsToUse: 640,
       paymentMethod: 'cod',
       settings: { freeShippingThreshold: 1499, shippingFee: 99, codFee: 49 },
       loyalty: {

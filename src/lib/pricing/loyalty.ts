@@ -30,6 +30,16 @@ export function redeemablePoints(
   return points >= rules.minRedeemPoints ? points : 0
 }
 
+// a request outside the allowed range snaps to the nearest end, and 0 always means no points
+export function pointsToRedeem(
+  requested: number,
+  maxRedeemable: number,
+  rules: LoyaltyRules,
+): number {
+  if (requested <= 0 || maxRedeemable <= 0) return 0
+  return Math.min(maxRedeemable, Math.max(rules.minRedeemPoints, Math.floor(requested)))
+}
+
 export function pointsValue(points: number, rules: LoyaltyRules): number {
   return Math.round(points * rules.pointValueRupees)
 }

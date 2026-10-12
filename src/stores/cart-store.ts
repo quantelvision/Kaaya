@@ -15,7 +15,7 @@ type PersistedCart = {
   lines: CartLine[]
   couponCode: string | null
   coupon: CouponRule | null
-  usePoints: boolean
+  pointsToUse: number
 }
 
 type CartState = PersistedCart & {
@@ -27,7 +27,7 @@ type CartState = PersistedCart & {
   setOpen: (isOpen: boolean) => void
   setCoupon: (code: string, coupon: CouponRule) => void
   removeCoupon: () => void
-  setUsePoints: (usePoints: boolean) => void
+  setPointsToUse: (points: number) => void
   clear: () => void
 }
 
@@ -37,7 +37,7 @@ export const useCartStore = create<CartState>()(
       lines: [],
       couponCode: null,
       coupon: null,
-      usePoints: false,
+      pointsToUse: 0,
       isOpen: false,
       lastAddedAt: null,
       addLine: (input, quantity = 1) => {
@@ -50,26 +50,26 @@ export const useCartStore = create<CartState>()(
       setOpen: (isOpen) => set({ isOpen }),
       setCoupon: (couponCode, coupon) => set({ couponCode, coupon }),
       removeCoupon: () => set({ couponCode: null, coupon: null }),
-      setUsePoints: (usePoints) => set({ usePoints }),
+      setPointsToUse: (points) => set({ pointsToUse: Math.max(0, Math.floor(points)) }),
       clear: () =>
-        set({ lines: [], couponCode: null, coupon: null, usePoints: false, lastAddedAt: null }),
+        set({ lines: [], couponCode: null, coupon: null, pointsToUse: 0, lastAddedAt: null }),
     }),
     {
       name: 'kaaya-cart',
-      version: 3,
+      version: 4,
       storage: sessionJSONStorage<PersistedCart>(),
       partialize: (state) => ({
         lines: state.lines,
         couponCode: state.couponCode,
         coupon: state.coupon,
-        usePoints: state.usePoints,
+        pointsToUse: state.pointsToUse,
       }),
       migrate: (persisted) => {
         const state = persisted as Partial<PersistedCart>
         return {
           couponCode: state.couponCode ?? null,
           coupon: state.coupon ?? null,
-          usePoints: state.usePoints ?? false,
+          pointsToUse: typeof state.pointsToUse === 'number' ? state.pointsToUse : 0,
           lines: (state.lines ?? []).map((line) => ({
             ...line,
             availableSizes: line.availableSizes ?? [{ size: line.size, stock: line.stock }],

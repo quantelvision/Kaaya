@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { CartLineItem } from '@/components/cart/cart-line-item'
 import { CouponField } from '@/components/cart/coupon-field'
 import { OrderSummaryRows } from '@/components/cart/order-summary-rows'
-import { PointsToggle } from '@/components/cart/points-toggle'
+import { PointsRedeemer } from '@/components/cart/points-redeemer'
 import { useCartTotals } from '@/components/cart/use-cart-totals'
 import { Button, buttonClasses } from '@/components/ui/button'
 import { Price } from '@/components/ui/price'
@@ -131,10 +131,10 @@ export function CartDrawer({ storePricing }: { storePricing: StorePricing }) {
           <div className="flex flex-col gap-4 border-t border-line pt-5">
             <CouponField subtotal={totals.subtotal} applied={totals.coupon} />
             {storePricing.loyalty && (
-              <PointsToggle
+              <PointsRedeemer
                 balance={balance}
                 redeemablePoints={totals.redeemablePoints}
-                pointsDiscount={totals.pointsDiscount}
+                pointsRedeemed={totals.pointsRedeemed}
                 rules={storePricing.loyalty}
               />
             )}
